@@ -1,0 +1,73 @@
+// Generated for: spectre
+// Generated on: May  1 20:51:33 2026
+// Design library name: ADI_Project
+// Design cell name: Input_Retimer
+// Design view name: schematic
+simulator lang=spectre
+global 0 vdd!
+
+// Library name: ADI_Project
+// Cell name: NAND
+// View name: schematic
+subckt NAND A B OUT
+parameters Msize
+    M2 (OUT B vdd! vdd!) pch w=220n l=180.00n m=2*Msize
+    M5 (OUT A vdd! vdd!) pch w=220n l=180.00n m=2*Msize
+    M0 (OUT A net1 net1) nch w=220n l=180.00n m=2*Msize
+    M1 (net1 B 0 0) nch w=220n l=180.00n m=2*Msize
+ends NAND
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Inverter
+// View name: schematic
+subckt Inverter IN OUT
+parameters Msize
+    M1 (OUT IN 0 0) nch w=220n l=180.00n m=Msize
+    M5 (OUT IN vdd! vdd!) pch w=220n l=180.00n m=2*Msize
+ends Inverter
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Bit_Retimer
+// View name: schematic
+subckt Bit_Retimer CLKC CLKT D Dret nDret
+    I7 (Dret net9 nDret) NAND Msize=512
+    I6 (net7 nDret Dret) NAND Msize=512
+    I4 (net2 net11 net7) NAND Msize=32
+    I5 (net6 net11 net9) NAND Msize=32
+    I3 (net2 net15 net4) NAND Msize=256
+    I2 (net14 net4 net2) NAND Msize=256
+    I0 (D net12 net14) NAND Msize=32
+    I1 (net3 net12 net15) NAND Msize=32
+    Iinv5 (net8 net11) Inverter Msize=2
+    Iinv4 (CLKT net8) Inverter Msize=2
+    Iinv3 (net10 net12) Inverter Msize=2
+    Iinv2 (CLKC net10) Inverter Msize=2
+    Iinv1 (net2 net6) Inverter Msize=256
+    Iinv0 (D net3) Inverter Msize=256
+ends Bit_Retimer
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Input_Retimer
+// View name: schematic
+I17 (CLKC CLKT D\<7\> Dret\<7\> nDret\<7\>) Bit_Retimer
+I16 (CLKC CLKT D\<6\> Dret\<6\> nDret\<6\>) Bit_Retimer
+I15 (CLKC CLKT D\<5\> Dret\<5\> nDret\<5\>) Bit_Retimer
+I14 (CLKC CLKT D\<4\> Dret\<4\> nDret\<4\>) Bit_Retimer
+I12 (CLKC CLKT D\<2\> Dret\<2\> nDret\<2\>) Bit_Retimer
+I10 (CLKC CLKT D\<0\> Dret\<0\> nDret\<0\>) Bit_Retimer
+I11 (CLKC CLKT D\<1\> Dret\<1\> nDret\<1\>) Bit_Retimer
+I13 (CLKC CLKT D\<3\> Dret\<3\> nDret\<3\>) Bit_Retimer
+simulatorOptions options psfversion="1.4.0" reltol=1e-3 vabstol=1e-6 \
+    iabstol=1e-12 temp=27 tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 \
+    maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3 \
+    sensfile="../psf/sens.output" checklimitdest=psf 
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+subckts info what=subckts where=rawfile
+saveOptions options save=allpub

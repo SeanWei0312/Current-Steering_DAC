@@ -1,0 +1,310 @@
+// Generated for: spectre
+// Generated on: May  1 20:36:44 2026
+// Design library name: ADI_Project
+// Design cell name: Tuning_Range_test
+// Design view name: schematic
+simulator lang=spectre
+global 0 vdd!
+parameters trim0=32 trim1=32 trim2=32 trim3=32 trim4=32 trim5=32 trim6=32 \
+    trim7=32 code=1
+include "/homes/user/stud/fall25/yw4576/pdk/TSMC018_teaching.scs" section=tt
+
+// Library name: ADI_Project
+// Cell name: Test_Trim_Input_DC_Array
+// View name: schematic
+subckt Test_Trim_Input_DC_Array T0\<0\> T0\<1\> T0\<2\> T0\<3\> T0\<4\> \
+        T0\<5\> T1\<0\> T1\<1\> T1\<2\> T1\<3\> T1\<4\> T1\<5\> T2\<0\> \
+        T2\<1\> T2\<2\> T2\<3\> T2\<4\> T2\<5\> T3\<0\> T3\<1\> T3\<2\> \
+        T3\<3\> T3\<4\> T3\<5\> T4\<0\> T4\<1\> T4\<2\> T4\<3\> T4\<4\> \
+        T4\<5\> T5\<0\> T5\<1\> T5\<2\> T5\<3\> T5\<4\> T5\<5\> T6\<0\> \
+        T6\<1\> T6\<2\> T6\<3\> T6\<4\> T6\<5\> T7\<0\> T7\<1\> T7\<2\> \
+        T7\<3\> T7\<4\> T7\<5\>
+    V11 (T6\<3\> 0) vsource dc=1.8*(floor(trim6/8)-2*floor(trim6/16)) \
+        type=dc
+    V10 (T7\<3\> 0) vsource dc=1.8*(floor(trim7/8)-2*floor(trim7/16)) \
+        type=dc
+    V9 (T6\<4\> 0) vsource dc=1.8*(floor(trim6/16)-2*floor(trim6/32)) \
+        type=dc
+    V8 (T7\<4\> 0) vsource dc=1.8*(floor(trim7/16)-2*floor(trim7/32)) \
+        type=dc
+    V7 (T7\<5\> 0) vsource dc=1.8*(floor(trim7/32)-2*floor(trim7/64)) \
+        type=dc
+    V6 (T6\<5\> 0) vsource dc=1.8*(floor(trim6/32)-2*floor(trim6/64)) \
+        type=dc
+    V5 (T7\<2\> 0) vsource dc=1.8*(floor(trim7/4)-2*floor(trim7/8)) \
+        type=dc
+    V4 (T7\<1\> 0) vsource dc=1.8*(floor(trim7/2)-2*floor(trim7/4)) \
+        type=dc
+    V3 (T7\<0\> 0) vsource dc=1.8*(floor(trim7/1)-2*floor(trim7/2)) \
+        type=dc
+    V2 (T6\<0\> 0) vsource dc=1.8*(floor(trim6/1)-2*floor(trim6/2)) \
+        type=dc
+    V1 (T6\<1\> 0) vsource dc=1.8*(floor(trim6/2)-2*floor(trim6/4)) \
+        type=dc
+    V0 (T6\<2\> 0) vsource dc=1.8*(floor(trim6/4)-2*floor(trim6/8)) \
+        type=dc
+    V62 (T0\<0\> 0) vsource dc=1.8*(floor(trim0/1)-2*floor(trim0/2)) \
+        type=dc
+    V61 (T1\<0\> 0) vsource dc=1.8*(floor(trim1/1)-2*floor(trim1/2)) \
+        type=dc
+    V60 (T2\<0\> 0) vsource dc=1.8*(floor(trim2/1)-2*floor(trim2/2)) \
+        type=dc
+    V59 (T3\<0\> 0) vsource dc=1.8*(floor(trim3/1)-2*floor(trim3/2)) \
+        type=dc
+    V58 (T5\<0\> 0) vsource dc=1.8*(floor(trim5/1)-2*floor(trim5/2)) \
+        type=dc
+    V57 (T4\<0\> 0) vsource dc=1.8*(floor(trim4/1)-2*floor(trim4/2)) \
+        type=dc
+    V56 (T4\<1\> 0) vsource dc=1.8*(floor(trim4/2)-2*floor(trim4/4)) \
+        type=dc
+    V55 (T5\<1\> 0) vsource dc=1.8*(floor(trim5/2)-2*floor(trim5/4)) \
+        type=dc
+    V54 (T3\<1\> 0) vsource dc=1.8*(floor(trim3/2)-2*floor(trim3/4)) \
+        type=dc
+    V53 (T2\<1\> 0) vsource dc=1.8*(floor(trim2/2)-2*floor(trim2/4)) \
+        type=dc
+    V52 (T1\<1\> 0) vsource dc=1.8*(floor(trim1/2)-2*floor(trim1/4)) \
+        type=dc
+    V51 (T0\<1\> 0) vsource dc=1.8*(floor(trim0/2)-2*floor(trim0/4)) \
+        type=dc
+    V50 (T0\<2\> 0) vsource dc=1.8*(floor(trim0/4)-2*floor(trim0/8)) \
+        type=dc
+    V49 (T1\<2\> 0) vsource dc=1.8*(floor(trim1/4)-2*floor(trim1/8)) \
+        type=dc
+    V48 (T2\<2\> 0) vsource dc=1.8*(floor(trim2/4)-2*floor(trim2/8)) \
+        type=dc
+    V47 (T3\<2\> 0) vsource dc=1.8*(floor(trim3/4)-2*floor(trim3/8)) \
+        type=dc
+    V46 (T5\<2\> 0) vsource dc=1.8*(floor(trim5/4)-2*floor(trim5/8)) \
+        type=dc
+    V45 (T4\<2\> 0) vsource dc=1.8*(floor(trim4/4)-2*floor(trim4/8)) \
+        type=dc
+    V44 (T4\<3\> 0) vsource dc=1.8*(floor(trim4/8)-2*floor(trim4/16)) \
+        type=dc
+    V43 (T5\<3\> 0) vsource dc=1.8*(floor(trim5/8)-2*floor(trim5/16)) \
+        type=dc
+    V42 (T3\<3\> 0) vsource dc=1.8*(floor(trim3/8)-2*floor(trim3/16)) \
+        type=dc
+    V41 (T2\<3\> 0) vsource dc=1.8*(floor(trim2/8)-2*floor(trim2/16)) \
+        type=dc
+    V40 (T1\<3\> 0) vsource dc=1.8*(floor(trim1/8)-2*floor(trim1/16)) \
+        type=dc
+    V39 (T0\<3\> 0) vsource dc=1.8*(floor(trim0/8)-2*floor(trim0/16)) \
+        type=dc
+    V38 (T4\<4\> 0) vsource dc=1.8*(floor(trim4/16)-2*floor(trim4/32)) \
+        type=dc
+    V37 (T5\<4\> 0) vsource dc=1.8*(floor(trim5/16)-2*floor(trim5/32)) \
+        type=dc
+    V36 (T3\<4\> 0) vsource dc=1.8*(floor(trim3/16)-2*floor(trim3/32)) \
+        type=dc
+    V35 (T2\<4\> 0) vsource dc=1.8*(floor(trim2/16)-2*floor(trim2/32)) \
+        type=dc
+    V34 (T1\<4\> 0) vsource dc=1.8*(floor(trim1/16)-2*floor(trim1/32)) \
+        type=dc
+    V33 (T0\<4\> 0) vsource dc=1.8*(floor(trim0/16)-2*floor(trim0/32)) \
+        type=dc
+    V21 (T1\<5\> 0) vsource dc=1.8*(floor(trim1/32)-2*floor(trim1/64)) \
+        type=dc
+    V20 (T0\<5\> 0) vsource dc=1.8*(floor(trim0/32)-2*floor(trim0/64)) \
+        type=dc
+    V19 (T3\<5\> 0) vsource dc=1.8*(floor(trim3/32)-2*floor(trim3/64)) \
+        type=dc
+    V18 (T2\<5\> 0) vsource dc=1.8*(floor(trim2/32)-2*floor(trim2/64)) \
+        type=dc
+    V17 (T5\<5\> 0) vsource dc=1.8*(floor(trim5/32)-2*floor(trim5/64)) \
+        type=dc
+    V16 (T4\<5\> 0) vsource dc=1.8*(floor(trim4/32)-2*floor(trim4/64)) \
+        type=dc
+ends Test_Trim_Input_DC_Array
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Bias_Generator
+// View name: schematic
+subckt Bias_Generator Vb
+    M0 (Vb Vb 0 0) nch w=3.5u l=800n
+    I2 (vdd! Vb) isource dc=100u type=dc
+    V0 (vdd! 0) vsource dc=1.8 type=dc
+ends Bias_Generator
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Output_Load
+// View name: schematic
+subckt Output_Load OUTn OUTp
+    R1 (vdd! OUTn) resistor r=50
+    R0 (vdd! OUTp) resistor r=50
+    C1 (OUTn 0) capacitor c=550f
+    C0 (OUTp 0) capacitor c=550f
+ends Output_Load
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Current_Steering_Switch
+// View name: schematic
+subckt Current_Steering_Switch Dn Dp OUTn OUTp S
+parameters weight
+    MswP (OUTp Dn S S) nch w=500n l=180n m=weight
+    MswN (OUTn Dp S S) nch w=500n l=180n m=weight
+ends Current_Steering_Switch
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Trim_DAC
+// View name: schematic
+subckt Trim_DAC D TRIM Vb
+parameters weight
+    M3 (nTRIM TRIM vdd! vdd!) pch w=10u l=180.00n
+    M2 (net1 nTRIM D D) pch w=4.5u l=180.00n m=2
+    M5 (D TRIM net1 net1) nch w=4.5u l=180.00n m=1
+    MT (net1 Vb 0 0) nch w=220n l=20u m=weight
+    M4 (nTRIM TRIM 0 0) nch w=10u l=180.00n
+ends Trim_DAC
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: 6b_Trim_DAC
+// View name: schematic
+subckt ADI_Project_6b_Trim_DAC_schematic Dt TRIM\<0\> TRIM\<1\> TRIM\<2\> \
+        TRIM\<3\> TRIM\<4\> TRIM\<5\> Vb
+parameters weight
+    I5 (Dt TRIM\<5\> Vb) Trim_DAC weight=32*weight
+    I4 (Dt TRIM\<4\> Vb) Trim_DAC weight=16*weight
+    I3 (Dt TRIM\<3\> Vb) Trim_DAC weight=8*weight
+    I2 (Dt TRIM\<2\> Vb) Trim_DAC weight=4*weight
+    I1 (Dt TRIM\<1\> Vb) Trim_DAC weight=2*weight
+    I0 (Dt TRIM\<0\> Vb) Trim_DAC weight=weight
+ends ADI_Project_6b_Trim_DAC_schematic
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Current_Source
+// View name: schematic
+subckt Current_Source D Vb
+parameters weight
+    Mcs (D Vb 0 0) nch w=1.183u l=500.0n m=weight
+ends Current_Source
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Bit_cell
+// View name: schematic
+subckt Bit_cell Dn Dp OUTn OUTp TRIM\<0\> TRIM\<1\> TRIM\<2\> TRIM\<3\> \
+        TRIM\<4\> TRIM\<5\> Vb
+parameters weight
+    I6 (Dn Dp OUTn OUTp net2) Current_Steering_Switch weight=weight
+    I5 (net2 TRIM\<0\> TRIM\<1\> TRIM\<2\> TRIM\<3\> TRIM\<4\> TRIM\<5\> \
+        Vb) ADI_Project_6b_Trim_DAC_schematic weight=weight
+    I2 (net2 Vb) Current_Source weight=weight
+ends Bit_cell
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: DAC_core
+// View name: schematic
+subckt DAC_core Dn\<0\> Dn\<1\> Dn\<2\> Dn\<3\> Dn\<4\> Dn\<5\> Dn\<6\> \
+        Dn\<7\> Dp\<0\> Dp\<1\> Dp\<2\> Dp\<3\> Dp\<4\> Dp\<5\> Dp\<6\> \
+        Dp\<7\> OUTn OUTp T0\<0\> T0\<1\> T0\<2\> T0\<3\> T0\<4\> T0\<5\> \
+        T1\<0\> T1\<1\> T1\<2\> T1\<3\> T1\<4\> T1\<5\> T2\<0\> T2\<1\> \
+        T2\<2\> T2\<3\> T2\<4\> T2\<5\> T3\<0\> T3\<1\> T3\<2\> T3\<3\> \
+        T3\<4\> T3\<5\> T4\<0\> T4\<1\> T4\<2\> T4\<3\> T4\<4\> T4\<5\> \
+        T5\<0\> T5\<1\> T5\<2\> T5\<3\> T5\<4\> T5\<5\> T6\<0\> T6\<1\> \
+        T6\<2\> T6\<3\> T6\<4\> T6\<5\> T7\<0\> T7\<1\> T7\<2\> T7\<3\> \
+        T7\<4\> T7\<5\> Vb
+    IBIT_cell_6 (Dn\<6\> Dp\<6\> OUTn OUTp T6\<0\> T6\<1\> T6\<2\> T6\<3\> \
+        T6\<4\> T6\<5\> Vb) Bit_cell weight=64
+    IBIT_cell_5 (Dn\<5\> Dp\<5\> OUTn OUTp T5\<0\> T5\<1\> T5\<2\> T5\<3\> \
+        T5\<4\> T5\<5\> Vb) Bit_cell weight=32
+    IBIT_cell_4 (Dn\<4\> Dp\<4\> OUTn OUTp T4\<0\> T4\<1\> T4\<2\> T4\<3\> \
+        T4\<4\> T4\<5\> Vb) Bit_cell weight=16
+    IBIT_cell_3 (Dn\<3\> Dp\<3\> OUTn OUTp T3\<0\> T3\<1\> T3\<2\> T3\<3\> \
+        T3\<4\> T3\<5\> Vb) Bit_cell weight=8
+    IBIT_cell_2 (Dn\<2\> Dp\<2\> OUTn OUTp T2\<0\> T2\<1\> T2\<2\> T2\<3\> \
+        T2\<4\> T2\<5\> Vb) Bit_cell weight=4
+    IBIT_cell_1 (Dn\<1\> Dp\<1\> OUTn OUTp T1\<0\> T1\<1\> T1\<2\> T1\<3\> \
+        T1\<4\> T1\<5\> Vb) Bit_cell weight=2
+    IBIT_cell_7 (Dn\<7\> Dp\<7\> OUTn OUTp T7\<0\> T7\<1\> T7\<2\> T7\<3\> \
+        T7\<4\> T7\<5\> Vb) Bit_cell weight=128
+    IBIT_cell_0 (Dn\<0\> Dp\<0\> OUTn OUTp T0\<0\> T0\<1\> T0\<2\> T0\<3\> \
+        T0\<4\> T0\<5\> Vb) Bit_cell weight=1
+ends DAC_core
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Test_D_Input_DC_Array
+// View name: schematic
+subckt Test_D_Input_DC_Array Dn\<0\> Dn\<1\> Dn\<2\> Dn\<3\> Dn\<4\> \
+        Dn\<5\> Dn\<6\> Dn\<7\> Dp\<0\> Dp\<1\> Dp\<2\> Dp\<3\> Dp\<4\> \
+        Dp\<5\> Dp\<6\> Dp\<7\>
+    V7 (Dp\<7\> 0) vsource dc=1.8*(floor(code/128)-2*floor(code/256)) \
+        type=dc
+    V6 (Dp\<6\> 0) vsource dc=1.8*(floor(code/64)-2*floor(code/128)) \
+        type=dc
+    V5 (Dp\<5\> 0) vsource dc=1.8*(floor(code/32)-2*floor(code/64)) \
+        type=dc
+    V4 (Dp\<4\> 0) vsource dc=1.8*(floor(code/16)-2*floor(code/32)) \
+        type=dc
+    V3 (Dp\<3\> 0) vsource dc=1.8*(floor(code/8)-2*floor(code/16)) type=dc
+    V2 (Dp\<2\> 0) vsource dc=1.8*(floor(code/4)-2*floor(code/8)) type=dc
+    V1 (Dp\<1\> 0) vsource dc=1.8*(floor(code/2)-2*floor(code/4)) type=dc
+    V0 (Dp\<0\> 0) vsource dc=1.8*(floor(code/1)-2*floor(code/2)) type=dc
+    V15 (Dn\<7\> 0) vsource dc=1.8*(1-(floor(code/128)-2*floor(code/256))) \
+        type=dc
+    V14 (Dn\<6\> 0) vsource dc=1.8*(1-(floor(code/64)-2*floor(code/128))) \
+        type=dc
+    V13 (Dn\<5\> 0) vsource dc=1.8*(1-(floor(code/32)-2*floor(code/64))) \
+        type=dc
+    V12 (Dn\<4\> 0) vsource dc=1.8*(1-(floor(code/16)-2*floor(code/32))) \
+        type=dc
+    V11 (Dn\<3\> 0) vsource dc=1.8*(1-(floor(code/8)-2*floor(code/16))) \
+        type=dc
+    V10 (Dn\<2\> 0) vsource dc=1.8*(1-(floor(code/4)-2*floor(code/8))) \
+        type=dc
+    V9 (Dn\<1\> 0) vsource dc=1.8*(1-(floor(code/2)-2*floor(code/4))) \
+        type=dc
+    V8 (Dn\<0\> 0) vsource dc=1.8*(1-(floor(code/1)-2*floor(code/2))) \
+        type=dc
+ends Test_D_Input_DC_Array
+// End of subcircuit definition.
+
+// Library name: ADI_Project
+// Cell name: Tuning_Range_test
+// View name: schematic
+I33 (T0\<0\> T0\<1\> T0\<2\> T0\<3\> T0\<4\> T0\<5\> T1\<0\> T1\<1\> \
+        T1\<2\> T1\<3\> T1\<4\> T1\<5\> T2\<0\> T2\<1\> T2\<2\> T2\<3\> \
+        T2\<4\> T2\<5\> T3\<0\> T3\<1\> T3\<2\> T3\<3\> T3\<4\> T3\<5\> \
+        T4\<0\> T4\<1\> T4\<2\> T4\<3\> T4\<4\> T4\<5\> T5\<0\> T5\<1\> \
+        T5\<2\> T5\<3\> T5\<4\> T5\<5\> T6\<0\> T6\<1\> T6\<2\> T6\<3\> \
+        T6\<4\> T6\<5\> T7\<0\> T7\<1\> T7\<2\> T7\<3\> T7\<4\> T7\<5\>) \
+        Test_Trim_Input_DC_Array
+I9 (net1) Bias_Generator
+I18 (OUTn OUTp) Output_Load
+IDAC_core (Dn\<0\> Dn\<1\> Dn\<2\> Dn\<3\> Dn\<4\> Dn\<5\> Dn\<6\> Dn\<7\> \
+        Dp\<0\> Dp\<1\> Dp\<2\> Dp\<3\> Dp\<4\> Dp\<5\> Dp\<6\> Dp\<7\> \
+        OUTn OUTp T0\<0\> T0\<1\> T0\<2\> T0\<3\> T0\<4\> T0\<5\> T1\<0\> \
+        T1\<1\> T1\<2\> T1\<3\> T1\<4\> T1\<5\> T2\<0\> T2\<1\> T2\<2\> \
+        T2\<3\> T2\<4\> T2\<5\> T3\<0\> T3\<1\> T3\<2\> T3\<3\> T3\<4\> \
+        T3\<5\> T4\<0\> T4\<1\> T4\<2\> T4\<3\> T4\<4\> T4\<5\> T5\<0\> \
+        T5\<1\> T5\<2\> T5\<3\> T5\<4\> T5\<5\> T6\<0\> T6\<1\> T6\<2\> \
+        T6\<3\> T6\<4\> T6\<5\> T7\<0\> T7\<1\> T7\<2\> T7\<3\> T7\<4\> \
+        T7\<5\> net1) DAC_core
+I32 (Dn\<0\> Dn\<1\> Dn\<2\> Dn\<3\> Dn\<4\> Dn\<5\> Dn\<6\> Dn\<7\> \
+        Dp\<0\> Dp\<1\> Dp\<2\> Dp\<3\> Dp\<4\> Dp\<5\> Dp\<6\> Dp\<7\>) \
+        Test_D_Input_DC_Array
+simulatorOptions options psfversion="1.4.0" reltol=1e-3 vabstol=1e-6 \
+    iabstol=1e-12 temp=27 tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 \
+    maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3 \
+    sensfile="../psf/sens.output" checklimitdest=psf 
+dc dc param=trim0 start=0 stop=63 step=1 write="spectre.dc" \
+    oppoint=rawfile maxiters=150 maxsteps=10000 annotate=status 
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+subckts info what=subckts where=rawfile
+save IDAC_core.IBIT_cell_0:3 IDAC_core.IBIT_cell_1:3 \
+    IDAC_core.IBIT_cell_2:3 IDAC_core.IBIT_cell_3:3 \
+    IDAC_core.IBIT_cell_4:3 IDAC_core.IBIT_cell_5:3 \
+    IDAC_core.IBIT_cell_6:3 IDAC_core.IBIT_cell_7:3 
+saveOptions options save=allpub
