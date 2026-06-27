@@ -1,0 +1,296 @@
+simulator lang=spectre
+global 0 vdd!
+parameters fsamp=250M J=127 M=2048 pts_per_symbol=32 tstart=400n trim0=32 \
+    trim1=32 trim2=32 trim3=32 trim4=32 trim5=32 trim6=32 trim7=32 \
+    tstep=1/(pts_per_symbol*fsamp) tstop=tstart + (M+10)/fsamp
+include "/homes/user/stud/fall25/yw4576/pdk/TSMC018_teaching.scs" section=tt
+
+subckt NAND A B OUT
+parameters Msize
+    M2 (OUT B vdd! vdd!) pch w=220n l=180.00n m=2*Msize
+    M5 (OUT A vdd! vdd!) pch w=220n l=180.00n m=2*Msize
+    M0 (OUT A net1 net1) nch w=220n l=180.00n m=2*Msize
+    M1 (net1 B 0 0) nch w=220n l=180.00n m=2*Msize
+ends NAND
+
+subckt Inverter IN OUT
+parameters Msize
+    M1 (OUT IN 0 0) nch w=220n l=180.00n m=Msize
+    M5 (OUT IN vdd! vdd!) pch w=220n l=180.00n m=2*Msize
+ends Inverter
+
+subckt Bit_Retimer CLKC CLKT D Dret nDret
+    I7 (Dret net9 nDret) NAND Msize=512
+    I6 (net7 nDret Dret) NAND Msize=512
+    I4 (net2 net11 net7) NAND Msize=32
+    I5 (net6 net11 net9) NAND Msize=32
+    I3 (net2 net15 net4) NAND Msize=256
+    I2 (net14 net4 net2) NAND Msize=256
+    I0 (D net12 net14) NAND Msize=32
+    I1 (net3 net12 net15) NAND Msize=32
+    Iinv5 (net8 net11) Inverter Msize=2
+    Iinv4 (CLKT net8) Inverter Msize=2
+    Iinv3 (net10 net12) Inverter Msize=2
+    Iinv2 (CLKC net10) Inverter Msize=2
+    Iinv1 (net2 net6) Inverter Msize=256
+    Iinv0 (D net3) Inverter Msize=256
+ends Bit_Retimer
+
+subckt Input_Retimer CLKC CLKT D\<0\> D\<1\> D\<2\> D\<3\> D\<4\> D\<5\> \
+        D\<6\> D\<7\> Dret\<0\> Dret\<1\> Dret\<2\> Dret\<3\> Dret\<4\> \
+        Dret\<5\> Dret\<6\> Dret\<7\> nDret\<0\> nDret\<1\> nDret\<2\> \
+        nDret\<3\> nDret\<4\> nDret\<5\> nDret\<6\> nDret\<7\>
+    I17 (CLKC CLKT D\<7\> Dret\<7\> nDret\<7\>) Bit_Retimer
+    I16 (CLKC CLKT D\<6\> Dret\<6\> nDret\<6\>) Bit_Retimer
+    I15 (CLKC CLKT D\<5\> Dret\<5\> nDret\<5\>) Bit_Retimer
+    I14 (CLKC CLKT D\<4\> Dret\<4\> nDret\<4\>) Bit_Retimer
+    I12 (CLKC CLKT D\<2\> Dret\<2\> nDret\<2\>) Bit_Retimer
+    I10 (CLKC CLKT D\<0\> Dret\<0\> nDret\<0\>) Bit_Retimer
+    I11 (CLKC CLKT D\<1\> Dret\<1\> nDret\<1\>) Bit_Retimer
+    I13 (CLKC CLKT D\<3\> Dret\<3\> nDret\<3\>) Bit_Retimer
+ends Input_Retimer
+
+subckt Test_Trim_Input_DC_Array T0\<0\> T0\<1\> T0\<2\> T0\<3\> T0\<4\> \
+        T0\<5\> T1\<0\> T1\<1\> T1\<2\> T1\<3\> T1\<4\> T1\<5\> T2\<0\> \
+        T2\<1\> T2\<2\> T2\<3\> T2\<4\> T2\<5\> T3\<0\> T3\<1\> T3\<2\> \
+        T3\<3\> T3\<4\> T3\<5\> T4\<0\> T4\<1\> T4\<2\> T4\<3\> T4\<4\> \
+        T4\<5\> T5\<0\> T5\<1\> T5\<2\> T5\<3\> T5\<4\> T5\<5\> T6\<0\> \
+        T6\<1\> T6\<2\> T6\<3\> T6\<4\> T6\<5\> T7\<0\> T7\<1\> T7\<2\> \
+        T7\<3\> T7\<4\> T7\<5\>
+    V11 (T6\<3\> 0) vsource dc=1.8*(floor(trim6/8)-2*floor(trim6/16)) \
+        type=dc
+    V10 (T7\<3\> 0) vsource dc=1.8*(floor(trim7/8)-2*floor(trim7/16)) \
+        type=dc
+    V9 (T6\<4\> 0) vsource dc=1.8*(floor(trim6/16)-2*floor(trim6/32)) \
+        type=dc
+    V8 (T7\<4\> 0) vsource dc=1.8*(floor(trim7/16)-2*floor(trim7/32)) \
+        type=dc
+    V7 (T7\<5\> 0) vsource dc=1.8*(floor(trim7/32)-2*floor(trim7/64)) \
+        type=dc
+    V6 (T6\<5\> 0) vsource dc=1.8*(floor(trim6/32)-2*floor(trim6/64)) \
+        type=dc
+    V5 (T7\<2\> 0) vsource dc=1.8*(floor(trim7/4)-2*floor(trim7/8)) \
+        type=dc
+    V4 (T7\<1\> 0) vsource dc=1.8*(floor(trim7/2)-2*floor(trim7/4)) \
+        type=dc
+    V3 (T7\<0\> 0) vsource dc=1.8*(floor(trim7/1)-2*floor(trim7/2)) \
+        type=dc
+    V2 (T6\<0\> 0) vsource dc=1.8*(floor(trim6/1)-2*floor(trim6/2)) \
+        type=dc
+    V1 (T6\<1\> 0) vsource dc=1.8*(floor(trim6/2)-2*floor(trim6/4)) \
+        type=dc
+    V0 (T6\<2\> 0) vsource dc=1.8*(floor(trim6/4)-2*floor(trim6/8)) \
+        type=dc
+    V62 (T0\<0\> 0) vsource dc=1.8*(floor(trim0/1)-2*floor(trim0/2)) \
+        type=dc
+    V61 (T1\<0\> 0) vsource dc=1.8*(floor(trim1/1)-2*floor(trim1/2)) \
+        type=dc
+    V60 (T2\<0\> 0) vsource dc=1.8*(floor(trim2/1)-2*floor(trim2/2)) \
+        type=dc
+    V59 (T3\<0\> 0) vsource dc=1.8*(floor(trim3/1)-2*floor(trim3/2)) \
+        type=dc
+    V58 (T5\<0\> 0) vsource dc=1.8*(floor(trim5/1)-2*floor(trim5/2)) \
+        type=dc
+    V57 (T4\<0\> 0) vsource dc=1.8*(floor(trim4/1)-2*floor(trim4/2)) \
+        type=dc
+    V56 (T4\<1\> 0) vsource dc=1.8*(floor(trim4/2)-2*floor(trim4/4)) \
+        type=dc
+    V55 (T5\<1\> 0) vsource dc=1.8*(floor(trim5/2)-2*floor(trim5/4)) \
+        type=dc
+    V54 (T3\<1\> 0) vsource dc=1.8*(floor(trim3/2)-2*floor(trim3/4)) \
+        type=dc
+    V53 (T2\<1\> 0) vsource dc=1.8*(floor(trim2/2)-2*floor(trim2/4)) \
+        type=dc
+    V52 (T1\<1\> 0) vsource dc=1.8*(floor(trim1/2)-2*floor(trim1/4)) \
+        type=dc
+    V51 (T0\<1\> 0) vsource dc=1.8*(floor(trim0/2)-2*floor(trim0/4)) \
+        type=dc
+    V50 (T0\<2\> 0) vsource dc=1.8*(floor(trim0/4)-2*floor(trim0/8)) \
+        type=dc
+    V49 (T1\<2\> 0) vsource dc=1.8*(floor(trim1/4)-2*floor(trim1/8)) \
+        type=dc
+    V48 (T2\<2\> 0) vsource dc=1.8*(floor(trim2/4)-2*floor(trim2/8)) \
+        type=dc
+    V47 (T3\<2\> 0) vsource dc=1.8*(floor(trim3/4)-2*floor(trim3/8)) \
+        type=dc
+    V46 (T5\<2\> 0) vsource dc=1.8*(floor(trim5/4)-2*floor(trim5/8)) \
+        type=dc
+    V45 (T4\<2\> 0) vsource dc=1.8*(floor(trim4/4)-2*floor(trim4/8)) \
+        type=dc
+    V44 (T4\<3\> 0) vsource dc=1.8*(floor(trim4/8)-2*floor(trim4/16)) \
+        type=dc
+    V43 (T5\<3\> 0) vsource dc=1.8*(floor(trim5/8)-2*floor(trim5/16)) \
+        type=dc
+    V42 (T3\<3\> 0) vsource dc=1.8*(floor(trim3/8)-2*floor(trim3/16)) \
+        type=dc
+    V41 (T2\<3\> 0) vsource dc=1.8*(floor(trim2/8)-2*floor(trim2/16)) \
+        type=dc
+    V40 (T1\<3\> 0) vsource dc=1.8*(floor(trim1/8)-2*floor(trim1/16)) \
+        type=dc
+    V39 (T0\<3\> 0) vsource dc=1.8*(floor(trim0/8)-2*floor(trim0/16)) \
+        type=dc
+    V38 (T4\<4\> 0) vsource dc=1.8*(floor(trim4/16)-2*floor(trim4/32)) \
+        type=dc
+    V37 (T5\<4\> 0) vsource dc=1.8*(floor(trim5/16)-2*floor(trim5/32)) \
+        type=dc
+    V36 (T3\<4\> 0) vsource dc=1.8*(floor(trim3/16)-2*floor(trim3/32)) \
+        type=dc
+    V35 (T2\<4\> 0) vsource dc=1.8*(floor(trim2/16)-2*floor(trim2/32)) \
+        type=dc
+    V34 (T1\<4\> 0) vsource dc=1.8*(floor(trim1/16)-2*floor(trim1/32)) \
+        type=dc
+    V33 (T0\<4\> 0) vsource dc=1.8*(floor(trim0/16)-2*floor(trim0/32)) \
+        type=dc
+    V21 (T1\<5\> 0) vsource dc=1.8*(floor(trim1/32)-2*floor(trim1/64)) \
+        type=dc
+    V20 (T0\<5\> 0) vsource dc=1.8*(floor(trim0/32)-2*floor(trim0/64)) \
+        type=dc
+    V19 (T3\<5\> 0) vsource dc=1.8*(floor(trim3/32)-2*floor(trim3/64)) \
+        type=dc
+    V18 (T2\<5\> 0) vsource dc=1.8*(floor(trim2/32)-2*floor(trim2/64)) \
+        type=dc
+    V17 (T5\<5\> 0) vsource dc=1.8*(floor(trim5/32)-2*floor(trim5/64)) \
+        type=dc
+    V16 (T4\<5\> 0) vsource dc=1.8*(floor(trim4/32)-2*floor(trim4/64)) \
+        type=dc
+ends Test_Trim_Input_DC_Array
+
+subckt Bias_Generator Vb
+    M0 (Vb Vb 0 0) nch w=3.5u l=800n
+    I2 (vdd! Vb) isource dc=100u type=dc
+    V0 (vdd! 0) vsource dc=1.8 type=dc
+ends Bias_Generator
+
+subckt Output_Load OUTn OUTp
+    R1 (vdd! OUTn) resistor r=50
+    R0 (vdd! OUTp) resistor r=50
+    C1 (OUTn 0) capacitor c=550f
+    C0 (OUTp 0) capacitor c=550f
+ends Output_Load
+
+subckt Current_Steering_Switch Dn Dp OUTn OUTp S
+parameters weight
+    MswP (OUTp Dn S S) nch w=500n l=180n m=weight
+    MswN (OUTn Dp S S) nch w=500n l=180n m=weight
+ends Current_Steering_Switch
+
+subckt Trim_DAC D TRIM Vb
+parameters weight
+    M3 (nTRIM TRIM vdd! vdd!) pch w=10u l=180.00n
+    M2 (net1 nTRIM D D) pch w=4.5u l=180.00n m=2
+    M5 (D TRIM net1 net1) nch w=4.5u l=180.00n m=1
+    MT (net1 Vb 0 0) nch w=220n l=20u m=weight
+    M4 (nTRIM TRIM 0 0) nch w=10u l=180.00n
+ends Trim_DAC
+
+subckt ADI_Project_6b_Trim_DAC_schematic Dt TRIM\<0\> TRIM\<1\> TRIM\<2\> \
+        TRIM\<3\> TRIM\<4\> TRIM\<5\> Vb
+parameters weight
+    I5 (Dt TRIM\<5\> Vb) Trim_DAC weight=32*weight
+    I4 (Dt TRIM\<4\> Vb) Trim_DAC weight=16*weight
+    I3 (Dt TRIM\<3\> Vb) Trim_DAC weight=8*weight
+    I2 (Dt TRIM\<2\> Vb) Trim_DAC weight=4*weight
+    I1 (Dt TRIM\<1\> Vb) Trim_DAC weight=2*weight
+    I0 (Dt TRIM\<0\> Vb) Trim_DAC weight=weight
+ends ADI_Project_6b_Trim_DAC_schematic
+
+subckt Current_Source D Vb
+parameters weight
+    Mcs (D Vb 0 0) nch w=1.183u l=500.0n m=weight
+ends Current_Source
+
+subckt Bit_cell Dn Dp OUTn OUTp TRIM\<0\> TRIM\<1\> TRIM\<2\> TRIM\<3\> \
+        TRIM\<4\> TRIM\<5\> Vb
+parameters weight
+    I6 (Dn Dp OUTn OUTp net2) Current_Steering_Switch weight=weight
+    I5 (net2 TRIM\<0\> TRIM\<1\> TRIM\<2\> TRIM\<3\> TRIM\<4\> TRIM\<5\> \
+        Vb) ADI_Project_6b_Trim_DAC_schematic weight=weight
+    I2 (net2 Vb) Current_Source weight=weight
+ends Bit_cell
+
+subckt DAC_core Dn\<0\> Dn\<1\> Dn\<2\> Dn\<3\> Dn\<4\> Dn\<5\> Dn\<6\> \
+        Dn\<7\> Dp\<0\> Dp\<1\> Dp\<2\> Dp\<3\> Dp\<4\> Dp\<5\> Dp\<6\> \
+        Dp\<7\> OUTn OUTp T0\<0\> T0\<1\> T0\<2\> T0\<3\> T0\<4\> T0\<5\> \
+        T1\<0\> T1\<1\> T1\<2\> T1\<3\> T1\<4\> T1\<5\> T2\<0\> T2\<1\> \
+        T2\<2\> T2\<3\> T2\<4\> T2\<5\> T3\<0\> T3\<1\> T3\<2\> T3\<3\> \
+        T3\<4\> T3\<5\> T4\<0\> T4\<1\> T4\<2\> T4\<3\> T4\<4\> T4\<5\> \
+        T5\<0\> T5\<1\> T5\<2\> T5\<3\> T5\<4\> T5\<5\> T6\<0\> T6\<1\> \
+        T6\<2\> T6\<3\> T6\<4\> T6\<5\> T7\<0\> T7\<1\> T7\<2\> T7\<3\> \
+        T7\<4\> T7\<5\> Vb
+    IBIT_cell_6 (Dn\<6\> Dp\<6\> OUTn OUTp T6\<0\> T6\<1\> T6\<2\> T6\<3\> \
+        T6\<4\> T6\<5\> Vb) Bit_cell weight=64
+    IBIT_cell_5 (Dn\<5\> Dp\<5\> OUTn OUTp T5\<0\> T5\<1\> T5\<2\> T5\<3\> \
+        T5\<4\> T5\<5\> Vb) Bit_cell weight=32
+    IBIT_cell_4 (Dn\<4\> Dp\<4\> OUTn OUTp T4\<0\> T4\<1\> T4\<2\> T4\<3\> \
+        T4\<4\> T4\<5\> Vb) Bit_cell weight=16
+    IBIT_cell_3 (Dn\<3\> Dp\<3\> OUTn OUTp T3\<0\> T3\<1\> T3\<2\> T3\<3\> \
+        T3\<4\> T3\<5\> Vb) Bit_cell weight=8
+    IBIT_cell_2 (Dn\<2\> Dp\<2\> OUTn OUTp T2\<0\> T2\<1\> T2\<2\> T2\<3\> \
+        T2\<4\> T2\<5\> Vb) Bit_cell weight=4
+    IBIT_cell_1 (Dn\<1\> Dp\<1\> OUTn OUTp T1\<0\> T1\<1\> T1\<2\> T1\<3\> \
+        T1\<4\> T1\<5\> Vb) Bit_cell weight=2
+    IBIT_cell_7 (Dn\<7\> Dp\<7\> OUTn OUTp T7\<0\> T7\<1\> T7\<2\> T7\<3\> \
+        T7\<4\> T7\<5\> Vb) Bit_cell weight=128
+    IBIT_cell_0 (Dn\<0\> Dp\<0\> OUTn OUTp T0\<0\> T0\<1\> T0\<2\> T0\<3\> \
+        T0\<4\> T0\<5\> Vb) Bit_cell weight=1
+ends DAC_core
+
+subckt CLK_INV IN OUT
+    M4 (OUT IN 0 0) nch w=360n l=180.00n m=1
+    M5 (OUT IN vdd! vdd!) pch w=720n l=180.00n m=1
+ends CLK_INV
+
+V1 (net10 0) vsource type=pulse val0=0 val1=1.8 period=1/fsamp \
+        rise=0.01/fsamp fall=0.01/fsamp width=0.49/fsamp
+V0 (net9 0) vsource type=pulse val0=1.8 val1=0 period=1/fsamp \
+        rise=0.01/fsamp fall=0.01/fsamp width=0.49/fsamp
+I20 (CLKC CLKT D\<0\> D\<1\> D\<2\> D\<3\> D\<4\> D\<5\> D\<6\> D\<7\> \
+        net21\<0\> net21\<1\> net21\<2\> net21\<3\> net21\<4\> net21\<5\> \
+        net21\<6\> net21\<7\> net22\<0\> net22\<1\> net22\<2\> net22\<3\> \
+        net22\<4\> net22\<5\> net22\<6\> net22\<7\>) Input_Retimer
+I2 (net1\<0\> net1\<1\> net1\<2\> net1\<3\> net1\<4\> net1\<5\> net2\<0\> \
+        net2\<1\> net2\<2\> net2\<3\> net2\<4\> net2\<5\> net3\<0\> \
+        net3\<1\> net3\<2\> net3\<3\> net3\<4\> net3\<5\> net4\<0\> \
+        net4\<1\> net4\<2\> net4\<3\> net4\<4\> net4\<5\> net5\<0\> \
+        net5\<1\> net5\<2\> net5\<3\> net5\<4\> net5\<5\> net6\<0\> \
+        net6\<1\> net6\<2\> net6\<3\> net6\<4\> net6\<5\> net7\<0\> \
+        net7\<1\> net7\<2\> net7\<3\> net7\<4\> net7\<5\> net8\<0\> \
+        net8\<1\> net8\<2\> net8\<3\> net8\<4\> net8\<5\>) \
+        Test_Trim_Input_DC_Array
+I9 (net23) Bias_Generator
+I18 (OUTn OUTp) Output_Load
+I19 (net22\<0\> net22\<1\> net22\<2\> net22\<3\> net22\<4\> net22\<5\> \
+        net22\<6\> net22\<7\> net21\<0\> net21\<1\> net21\<2\> net21\<3\> \
+        net21\<4\> net21\<5\> net21\<6\> net21\<7\> OUTn OUTp net1\<0\> \
+        net1\<1\> net1\<2\> net1\<3\> net1\<4\> net1\<5\> net2\<0\> \
+        net2\<1\> net2\<2\> net2\<3\> net2\<4\> net2\<5\> net3\<0\> \
+        net3\<1\> net3\<2\> net3\<3\> net3\<4\> net3\<5\> net4\<0\> \
+        net4\<1\> net4\<2\> net4\<3\> net4\<4\> net4\<5\> net5\<0\> \
+        net5\<1\> net5\<2\> net5\<3\> net5\<4\> net5\<5\> net6\<0\> \
+        net6\<1\> net6\<2\> net6\<3\> net6\<4\> net6\<5\> net7\<0\> \
+        net7\<1\> net7\<2\> net7\<3\> net7\<4\> net7\<5\> net8\<0\> \
+        net8\<1\> net8\<2\> net8\<3\> net8\<4\> net8\<5\> net23) DAC_core
+I0 (D\<7\> D\<6\> D\<5\> D\<4\> D\<3\> D\<2\> D\<1\> D\<0\> Vin CLKT) \
+        adc_8bit_ideal trise=0.01/fsamp tfall=0.01/fsamp tdel=10p \
+        vlogic_high=1.8 vlogic_low=0 vtrans_clk=0.9 vref=1.8
+I3 (net9 CLKT) CLK_INV
+I4 (net10 CLKC) CLK_INV
+V2 (Vin 0) vsource type=sine sinedc=900.0m ampl=900m sinephase=0 \
+        freq=fsamp*J/M
+simulatorOptions options psfversion="1.4.0" reltol=1e-3 vabstol=1e-6 \
+    iabstol=1e-12 temp=27 tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 \
+    maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3 \
+    sensfile="../psf/sens.output" checklimitdest=psf 
+tran tran stop=tstop errpreset=conservative step=tstep write="spectre.ic" \
+    writefinal="spectre.fc" annotate=status strobeperiod=tstep \
+    strobeoutput=strobeonly maxiters=5 
+finalTimeOP info what=oppoint where=rawfile
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+subckts info what=subckts where=rawfile
+save OUTp OUTn 
+saveOptions options save=allpub
+ahdl_include "/tools/cadence/IC618.270/tools/dfII/samples/artist/ahdlLib/adc_8bit_ideal/veriloga/veriloga.va"
