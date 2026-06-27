@@ -1,12 +1,21 @@
-# 8-Bit 250 MS/s Current-Steering DAC
+# 8-Bit 250-MS/s Differential Current-Steering DAC in 0.18 µm CMOS
 
-This project implements an 8-bit, 250 MS/s binary-weighted current-steering DAC in TSMC 0.18 um CMOS. The repository includes Cadence Spectre netlists, MATLAB post-processing scripts and CSV data, and a Markdown project report.
+This project implements an 8-bit, 250-MS/s differential current-steering DAC in TSMC 0.18 µm CMOS. The repository includes Cadence Spectre netlists, MATLAB post-processing scripts and CSV data, and a Markdown project report.
 
 ## Project Summary
+
+This is the final project for ELEN 6316 Analog-Digital Interfaces in VLSI, Spring 2026.
 
 The DAC uses eight binary-weighted NMOS current-steering bit cells with weights from 1 to 128. Each bit cell includes a 6-bit analog trim DAC for current-weight calibration. A NAND-latch-based input retimer aligns all digital inputs to the sampling clock, and a 100 uA NMOS-mirror bias generator provides the shared current-source bias.
 
 The design targets a 1.8 V supply, 1.5 Vpp differential output swing, 100 ohm differential output resistance, 25 ohm common-mode output resistance, and SFDR above 48 dB.
+
+## Contributors
+
+Yi-Hsiang Wei and Zijian Shang are students in the Department of Electrical Engineering at Columbia University.
+
+- Yi-Hsiang Wei: system-level and transistor-level schematic design, Cadence Virtuoso implementation, and Spectre simulation.
+- Zijian Shang: MATLAB result analysis and final report preparation.
 
 ## Key Results
 
@@ -26,6 +35,7 @@ The design targets a 1.8 V supply, 1.5 Vpp differential output swing, 100 ohm di
 ## Files
 
 - [PROJECT_REPORT.md](PROJECT_REPORT.md) - full Markdown project report.
+- [ELEN6316_Project_Requirements.pdf](ELEN6316_Project_Requirements.pdf) - course project requirements.
 - [figures/README.md](figures/README.md) - image placement guide for figures referenced by the Markdown report.
 - `Netlist/` - Spectre netlists and simulation test benches.
 - `Matlab_file/` - MATLAB analysis scripts and exported CSV data.

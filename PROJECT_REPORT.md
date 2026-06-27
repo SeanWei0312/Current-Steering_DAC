@@ -1,4 +1,4 @@
-# Design of an 8-Bit, 250 MS/s Binary-Weighted Current-Steering DAC in 0.18 um CMOS
+# 8-Bit 250-MS/s Differential Current-Steering DAC in 0.18 µm CMOS
 
 Yi-Hsiang Wei and Zijian Shang  
 Department of Electrical Engineering, Columbia University  
@@ -6,13 +6,13 @@ ELEN E6316 Analog-Digital Interface, Spring 2026
 
 ## Abstract
 
-This report presents the design of an 8-bit, 250 MS/s digital-to-analog converter implemented in TSMC 0.18 um CMOS technology with a 1.8 V supply. A binary-weighted current-steering architecture is adopted, consisting of eight binary-weighted NMOS bit cells with weights 1 through 128, a NAND-latch-based input retimer, a 100 uA NMOS-mirror bias generator, and a per-bit 6-bit analog weight trim DAC for mismatch correction.
+This report presents the design of an 8-bit, 250-MS/s digital-to-analog converter implemented in TSMC 0.18 µm CMOS technology with a 1.8 V supply. A binary-weighted current-steering architecture is adopted, consisting of eight binary-weighted NMOS bit cells with weights 1 through 128, a NAND-latch-based input retimer, a 100 uA NMOS-mirror bias generator, and a per-bit 6-bit analog weight trim DAC for mismatch correction.
 
 The differential output achieves a 1.50 V peak-to-peak swing across a 100 ohm differential / 25 ohm common-mode load. Across TT, SS, and FF process corners, the design achieves a minimum SFDR of 48.2 dB across the tested Nyquist-band input frequencies, meeting the 48 dB SFDR requirement. The design also achieves DNL below 0.18 LSB and INL below 0.24 LSB, well within the +/-1 LSB and +/-2 LSB limits. The 6-bit trim DAC provides approximately -14.8% to +14.3% current tuning range per bit, exceeding the +/-10% specification.
 
 ## I. Introduction
 
-High-speed digital-to-analog converters are fundamental building blocks in communication systems, arbitrary waveform generators, and software-defined radio front ends. The purpose of this project is to design an 8-bit DAC at 250 MS/s in TSMC 0.18 um CMOS.
+High-speed digital-to-analog converters are fundamental building blocks in communication systems, arbitrary waveform generators, and software-defined radio front ends. The purpose of this project is to design an 8-bit DAC at 250-MS/s in TSMC 0.18 µm CMOS.
 
 The design specifications are summarized below.
 
@@ -288,6 +288,6 @@ The FF corner has faster transitions and stronger switching transients, which ca
 
 ## V. Conclusion
 
-An 8-bit, 250 MS/s binary-weighted current-steering DAC was designed in TSMC 0.18 um CMOS. The design meets all static specifications: differential output swing of 1.50 Vpp, DNL below 0.18 LSB, and INL below 0.24 LSB across TT, SS, and FF corners. The 6-bit analog weight trim DAC provides approximately +/-14% tuning range per bit, exceeding the +/-10% requirement.
+An 8-bit, 250-MS/s differential current-steering DAC was designed in TSMC 0.18 µm CMOS. The design meets all static specifications: differential output swing of 1.50 Vpp, DNL below 0.18 LSB, and INL below 0.24 LSB across TT, SS, and FF corners. The 6-bit analog weight trim DAC provides approximately +/-14% tuning range per bit, exceeding the +/-10% requirement.
 
 Dynamic performance satisfies the 48 dB SFDR target across the tested Nyquist-band input frequencies, with the tightest margin in the FF corner at mid-frequency. The output impedance meets specification across all 256 input codes: differential output resistance is 98.76-99.84 ohm and common-mode output resistance is 24.69-24.96 ohm. Total power ranges from 51.0 mW at low input frequency to 60.8 mW near Nyquist, with the retimer as the dominant frequency-dependent consumer.
