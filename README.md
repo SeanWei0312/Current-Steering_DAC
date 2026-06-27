@@ -39,7 +39,7 @@ Yi-Hsiang Wei and Zijian Shang are students in Columbia University's Department 
 - [ELEN6316_Submission/docs/elen6316_submission.pdf](ELEN6316_Submission/docs/elen6316_submission.pdf) - class submission report.
 - [ELEN6316_Submission/docs/project_requirements.pdf](ELEN6316_Submission/docs/project_requirements.pdf) - course project requirements.
 - `Netlist_file/` - original Cadence-exported Spectre netlists and simulation testbenches.
-- `Spice_file/` - cleaned Spectre `.scs` files mirroring `Netlist_file/`.
+- `Spectre_file/` - cleaned Spectre `.scs` files mirroring `Netlist_file/`.
 - `Matlab_file/` - MATLAB analysis scripts and exported CSV data.
 - `ELEN6316_Submission/` - organized submission package with report source, figures, results, and final PDFs.
 
@@ -49,7 +49,7 @@ Yi-Hsiang Wei and Zijian Shang are students in Columbia University's Department 
 Netlist_file/
   Top-Level/          Original block-level Cadence Spectre exports
   test/               Original simulation testbenches
-Spice_file/
+Spectre_file/
   Top-Level/          Cleaned block-level Spectre .scs files
   test/               Cleaned Spectre .scs testbenches
 Matlab_file/
@@ -65,7 +65,7 @@ ELEN6316_Submission/  Final submission package
 
 ## Running Spectre Simulations
 
-The preferred simulation inputs are in `Spice_file/`. These files use Spectre syntax, have `.scs` extensions, and have had generated `//` comment lines removed. The original Cadence exports are preserved in `Netlist_file/`.
+The preferred simulation inputs are in `Spectre_file/`. These files use Spectre syntax, have `.scs` extensions, and have had generated `//` comment lines removed. The original Cadence exports are preserved in `Netlist_file/`.
 
 The testbenches include absolute model paths from the original environment:
 
@@ -79,18 +79,18 @@ Update those paths before running the simulations locally.
 Example:
 
 ```sh
-spectre Spice_file/test/INL_DNL_test.scs
+spectre Spectre_file/test/INL_DNL_test.scs
 ```
 
 Useful testbenches:
 
-- `Spice_file/test/INL_DNL_test.scs`
-- `Spice_file/test/Tuniing_Range_test.scs`
-- `Spice_file/test/SNDR_SFDR_test.scs`
-- `Spice_file/test/Power_test.scs`
-- `Spice_file/test/Input_Retimer_test.scs`
-- `Spice_file/test/Output_cm_test.scs`
-- `Spice_file/test/Output_diff_test.scs`
+- `Spectre_file/test/INL_DNL_test.scs`
+- `Spectre_file/test/Tuniing_Range_test.scs`
+- `Spectre_file/test/SNDR_SFDR_test.scs`
+- `Spectre_file/test/Power_test.scs`
+- `Spectre_file/test/Input_Retimer_test.scs`
+- `Spectre_file/test/Output_cm_test.scs`
+- `Spectre_file/test/Output_diff_test.scs`
 
 ## MATLAB Analysis
 
