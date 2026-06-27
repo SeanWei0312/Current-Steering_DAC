@@ -1,8 +1,8 @@
 # Project Report Figures
 
-Put the project report images in this `figures/` folder using the filenames below. `PROJECT_REPORT.md` already references these paths, so each picture will appear in the report after the matching image file is added.
+Put the project report images in this `figures/` folder using the filenames below. `DAC_Project_Report.md` already references these paths, so each picture will appear in the report after the matching image file is added.
 
-Supported formats are usually `png`, `jpg`, `jpeg`, or `svg`, but the report currently links to `.png` files. Rename exported images to these exact names or update the links in `PROJECT_REPORT.md`.
+Supported formats are usually `png`, `jpg`, `jpeg`, or `svg`, but the report currently links to `.png` files. Rename exported images to these exact names or update the links in `DAC_Project_Report.md`.
 
 | Figure | Filename | Caption |
 | --- | --- | --- |
@@ -27,7 +27,7 @@ Supported formats are usually `png`, `jpg`, `jpeg`, or `svg`, but the report cur
 ## Adding a New Figure
 
 1. Add the image file to this folder.
-2. Insert a Markdown image link in `PROJECT_REPORT.md`:
+2. Insert a Markdown image link in `DAC_Project_Report.md`:
 
 ```md
 ![Caption text](figures/my-new-figure.png)

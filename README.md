@@ -34,7 +34,8 @@ Yi-Hsiang Wei and Zijian Shang are students in the Department of Electrical Engi
 
 ## Files
 
-- [PROJECT_REPORT.md](PROJECT_REPORT.md) - full Markdown project report.
+- [ELEN6316_Submission.pdf](ELEN6316_Submission.pdf) - class submission report.
+- [DAC_Project_Report.md](DAC_Project_Report.md) - full detailed Markdown report.
 - [ELEN6316_Project_Requirements.pdf](ELEN6316_Project_Requirements.pdf) - course project requirements.
 - [figures/README.md](figures/README.md) - image placement guide for figures referenced by the Markdown report.
 - `Netlist/` - Spectre netlists and simulation test benches.
@@ -53,7 +54,7 @@ Matlab_file/
   Power/              Average power analysis
   Zout/               Output impedance analysis
   Retimer/            Retimer timing waveform analysis
-figures/              Drop report images here for PROJECT_REPORT.md
+figures/              Drop report images here for DAC_Project_Report.md
 ```
 
 ## Running Spectre Simulations
