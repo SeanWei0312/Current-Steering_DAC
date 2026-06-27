@@ -1,8 +1,63 @@
+<!--
+Report Editing Notes
+
+Structure:
+- Keep the report in this order: title/author block, CSS style block, Abstract,
+  numbered main sections, references.
+- Use Markdown headings for section hierarchy:
+  - `## I. Section Name` for major sections.
+  - `### A. Subsection Name` for subsections.
+- Keep equations and formula snippets in fenced `text` code blocks when plain
+  Markdown is clearer than LaTeX.
+- Keep measurement summary tables as Markdown tables.
+
+Package / asset layout:
+- Report source: `DAC_Project_Report.md`.
+- Figure assets: `figures/`.
+- Every image path should be relative, for example
+  `figures/fig01-top-level-schematic.png`.
+- Figure filenames use the pattern `figNN-short-description.png`, matching the
+  order of appearance in the report.
+
+Figure style:
+- Every figure uses:
+  `<img ... class="report-figure" style="--figure-width: 420px;">`
+- Change the pixel value in `--figure-width` beside each figure to resize that
+  figure only.
+- Do not set image height manually; `.report-figure` uses `height: auto` so the
+  original width/height ratio is preserved.
+- Add a visible caption immediately below each image:
+  `<p class="figure-caption">Fig. N. Caption text.</p>`
+
+Layout style:
+- Shared figure and caption styling lives in the `<style>` block below.
+- Figures are centered with responsive `max-width: 100%` so they shrink on
+  narrow screens.
+- Captions are centered, smaller than body text, and lightly colored.
+-->
+
 # 8-Bit 250-MS/s Differential Current-Steering DAC in 0.18 µm CMOS
 
 Yi-Hsiang Wei and Zijian Shang  
 Department of Electrical Engineering, Columbia University  
 ELEN E6316 Analog-Digital Interface, Spring 2026
+
+<style>
+.report-figure {
+  width: min(var(--figure-width), 100%);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.75rem auto 0.35rem;
+}
+
+.figure-caption {
+  margin: 0 0 1rem;
+  text-align: center;
+  font-size: 0.92rem;
+  color: #555;
+}
+</style>
 
 ## Abstract
 
@@ -79,13 +134,15 @@ The top-level design contains four main blocks:
 
 The DAC core contains eight binary-weighted bit cells and a per-bit 6-bit trim DAC. The output load is 50 ohm plus 550 fF per output node.
 
-![Fig. 1. Top-level schematic of the 8-bit DAC.](figures/fig01-top-level-schematic.png)
+<img src="figures/fig01-top-level-schematic.png" alt="Fig. 1. Top-level schematic of the 8-bit DAC." class="report-figure" style="--figure-width: 900px;">
+<p class="figure-caption">Fig. 1. Top-level schematic of the 8-bit DAC.</p>
 
 ### B. Single Bit Cell of DAC Core
 
 The DAC core uses eight bit cells with weights `1, 2, 4, 8, 16, 32, 64, 128`, corresponding to the 8-bit input code from LSB to MSB. Each bit cell steers its weighted current to either the positive or negative output branch according to the retimed differential digital inputs.
 
-![Fig. 2. Single bit DAC cell tuned by a 6-bit trim DAC.](figures/fig02-bit-cell.png)
+<img src="figures/fig02-bit-cell.png" alt="Fig. 2. Single bit DAC cell tuned by a 6-bit trim DAC." class="report-figure" style="--figure-width: 600px;">
+<p class="figure-caption">Fig. 2. Single bit DAC cell tuned by a 6-bit trim DAC.</p>
 
 | Device | W | L | Multiplier |
 | --- | ---: | ---: | --- |
@@ -99,7 +156,8 @@ For bit `k`, the multiplier is `m = 2^k`; the MSB cell uses `m = 128`, while the
 
 Each bit cell incorporates a 6-bit trim DAC block consisting of six binary-weighted single-bit trim DAC cells with weights `1, 2, 4, 8, 16, 32` times the bit cell base multiplicity.
 
-![Fig. 3. Single-bit trim DAC cell.](figures/fig03-trim-dac-cell.png)
+<img src="figures/fig03-trim-dac-cell.png" alt="Fig. 3. Single-bit trim DAC cell." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 3. Single-bit trim DAC cell.</p>
 
 | Device | W | L | Multiplier |
 | --- | ---: | ---: | --- |
@@ -111,15 +169,18 @@ Each bit cell incorporates a 6-bit trim DAC block consisting of six binary-weigh
 
 The long-channel trim current source improves output impedance and helps keep correction current code-independent. The default trim signal is `100000` in binary, or decimal `32`.
 
-![Fig. 4. Complete 8-bit DAC core.](figures/fig04-dac-core.png)
+<img src="figures/fig04-dac-core.png" alt="Fig. 4. Complete 8-bit DAC core." class="report-figure" style="--figure-width: 900px;">
+<p class="figure-caption">Fig. 4. Complete 8-bit DAC core.</p>
 
 ### D. Input Retimer
 
 To ensure simultaneous current-cell switching and suppress inter-bit skew, all 8 data bits are retimed to the rising edge of `CLKT`. Each bit passes through a NAND-latch-based retimer cell that produces synchronous complementary outputs `Dp` and `Dn`.
 
-![Fig. 5. Single-bit retimer cell.](figures/fig05-retimer-cell.png)
+<img src="figures/fig05-retimer-cell.png" alt="Fig. 5. Single-bit retimer cell." class="report-figure" style="--figure-width: 700px;">
+<p class="figure-caption">Fig. 5. Single-bit retimer cell.</p>
 
-![Fig. 6. NAND gate schematic.](figures/fig06-nand-gate.png)
+<img src="figures/fig06-nand-gate.png" alt="Fig. 6. NAND gate schematic." class="report-figure" style="--figure-width: 300px;">
+<p class="figure-caption">Fig. 6. NAND gate schematic.</p>
 
 | Device | W | L | Multiplier |
 | --- | ---: | ---: | --- |
@@ -128,13 +189,15 @@ To ensure simultaneous current-cell switching and suppress inter-bit skew, all 8
 | Inverter PMOS | 220 nm | 180 nm | `2*Msize` |
 | Inverter NMOS | 220 nm | 180 nm | `Msize` |
 
-![Fig. 7. Complete 8-bit input retimer block.](figures/fig07-input-retimer.png)
+<img src="figures/fig07-input-retimer.png" alt="Fig. 7. Complete 8-bit input retimer block." class="report-figure" style="--figure-width: 900px;">
+<p class="figure-caption">Fig. 7. Complete 8-bit input retimer block.</p>
 
 ### E. Bias Generator
 
 All current sources share a common gate bias `Vb`, generated by forcing 100 uA through a diode-connected NMOS transistor.
 
-![Fig. 8. Bias generator.](figures/fig08-bias-generator.png)
+<img src="figures/fig08-bias-generator.png" alt="Fig. 8. Bias generator." class="report-figure" style="--figure-width: 200px;">
+<p class="figure-caption">Fig. 8. Bias generator.</p>
 
 | Parameter | Value |
 | --- | ---: |
@@ -167,9 +230,11 @@ The exported output spectrum is post-processed with zero-order-hold sinc correct
 
 The output impedance is characterized by an AC frequency sweep at each of the `2^8 = 256` input codes. The low-frequency output resistance is extracted for both differential and common-mode outputs.
 
-![Fig. 9. Low-frequency Rout,diff and Rout,CM vs. 8-bit input code.](figures/fig09-output-impedance-code.png)
+<img src="figures/fig09-output-impedance-code.png" alt="Fig. 9. Low-frequency Rout,diff and Rout,CM vs. 8-bit input code." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 9. Low-frequency Rout,diff and Rout,CM vs. 8-bit input code.</p>
 
-![Fig. 10. Output impedance vs. frequency for selected codes.](figures/fig10-output-impedance-frequency.png)
+<img src="figures/fig10-output-impedance-frequency.png" alt="Fig. 10. Output impedance vs. frequency for selected codes." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 10. Output impedance vs. frequency for selected codes.</p>
 
 The differential output resistance varies only from 98.76 ohm to 99.84 ohm across all 256 codes. The common-mode resistance varies from 24.69 ohm to 24.96 ohm. Both values are within approximately 1.3% of their respective 100 ohm and 25 ohm targets.
 
@@ -187,9 +252,11 @@ All corners achieve at least 1.50 Vpp differential output swing. The common-mode
 
 The input retimer synchronizes all 8 data bits to the rising edge of `CLKT`. The report verifies the input data `D<0>`, the retimed output `Dret<0>`, and both clock phases over a 40 ns window.
 
-![Fig. 11. Retimer waveforms.](figures/fig11-retimer-waveforms.png)
+<img src="figures/fig11-retimer-waveforms.png" alt="Fig. 11. Retimer waveforms." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 11. Retimer waveforms.</p>
 
-![Fig. 12. Zoomed retimer transition.](figures/fig12-retimer-delay.png)
+<img src="figures/fig12-retimer-delay.png" alt="Fig. 12. Zoomed retimer transition." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 12. Zoomed retimer transition.</p>
 
 | Parameter | Value |
 | --- | ---: |
@@ -217,7 +284,8 @@ All corners are within the +/-1 LSB DNL and +/-2 LSB INL requirements. The peak 
 
 Per-bit current deviation is measured as the 6-bit trim code is swept from 0 to 63, using trim code 32 as the reference.
 
-![Fig. 13. Analog weight tuning range per bit in the TT corner.](figures/fig13-tuning-range.png)
+<img src="figures/fig13-tuning-range.png" alt="Fig. 13. Analog weight tuning range per bit in the TT corner." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 13. Analog weight tuning range per bit in the TT corner.</p>
 
 The measured tuning range is -14.8% at trim code 0 to +14.3% at trim code 63, averaged across all 8 bits. This exceeds the +/-10% requirement with more than 40% margin.
 
@@ -225,15 +293,19 @@ The measured tuning range is -14.8% at trim code 0 to +14.3% at trim code 63, av
 
 Output spectra are measured at low input frequency and near Nyquist. The TT corner examples are:
 
-![Fig. 14. Output spectrum at fin = 2.07 MHz, TT corner.](figures/fig14-spectrum-low-frequency.png)
+<img src="figures/fig14-spectrum-low-frequency.png" alt="Fig. 14. Output spectrum at fin = 2.07 MHz, TT corner." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 14. Output spectrum at fin = 2.07 MHz, TT corner.</p>
 
-![Fig. 15. Output spectrum at fin = 121.7 MHz, TT corner.](figures/fig15-spectrum-near-nyquist.png)
+<img src="figures/fig15-spectrum-near-nyquist.png" alt="Fig. 15. Output spectrum at fin = 121.7 MHz, TT corner." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 15. Output spectrum at fin = 121.7 MHz, TT corner.</p>
 
 SFDR and SNDR across process corners:
 
-![Fig. 16. SFDR vs. input frequency across process corners.](figures/fig16-sfdr-vs-frequency.png)
+<img src="figures/fig16-sfdr-vs-frequency.png" alt="Fig. 16. SFDR vs. input frequency across process corners." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 16. SFDR vs. input frequency across process corners.</p>
 
-![Fig. 17. SNDR vs. input frequency across process corners.](figures/fig17-sndr-vs-frequency.png)
+<img src="figures/fig17-sndr-vs-frequency.png" alt="Fig. 17. SNDR vs. input frequency across process corners." class="report-figure" style="--figure-width: 500px;">
+<p class="figure-caption">Fig. 17. SNDR vs. input frequency across process corners.</p>
 
 The TT corner achieves SFDR from 51 dB to 58 dB and SNDR from 47 dB to 49 dB across the tested Nyquist-band tones. The FF corner has the worst SFDR, dropping to 48.2 dB near 61 MHz.
 
