@@ -14,6 +14,10 @@ Structure:
 Package / asset layout:
 - Report source: `DAC_Project_Report.md`.
 - Figure assets: `figures/`.
+- Clean Spectre netlists: `Spice_file/`.
+- Original Cadence netlist exports: `Netlist_file/`.
+- MATLAB result scripts and CSV data: `Matlab_file/`.
+- Final submission package: `ELEN6316_Submission/`.
 - Every image path should be relative, for example
   `figures/fig01-top-level-schematic.png`.
 - Figure filenames use the pattern `figNN-short-description.png`, matching the
@@ -33,7 +37,7 @@ Figure style:
 Layout style:
 - Use GitHub-compatible HTML attributes instead of a `<style>` block, because
   GitHub Markdown sanitizes most custom CSS.
-- Figures and captions are centered and captions are italicized with plain HTML.
+- Figures and captions are centered; captions are italicized with plain HTML.
 -->
 
 # 8-Bit 250-MS/s Differential Current-Steering DAC in 0.18 µm CMOS
@@ -44,13 +48,13 @@ ELEN E6316 Analog-Digital Interface, Spring 2026
 
 ## Abstract
 
-This report presents the design of an 8-bit, 250-MS/s digital-to-analog converter implemented in TSMC 0.18 µm CMOS technology with a 1.8 V supply. A binary-weighted current-steering architecture is adopted, consisting of eight binary-weighted NMOS bit cells with weights 1 through 128, a NAND-latch-based input retimer, a 100 uA NMOS-mirror bias generator, and a per-bit 6-bit analog weight trim DAC for mismatch correction.
+This report presents the design of an 8-bit, 250-MS/s digital-to-analog converter implemented in TSMC 0.18 µm CMOS technology with a 1.8 V supply. The design adopts a binary-weighted current-steering architecture with eight binary-weighted NMOS bit cells weighted from 1 to 128, a NAND-latch-based input retimer, a 100 uA NMOS-mirror bias generator, and a per-bit 6-bit analog weight trim DAC for mismatch correction.
 
-The differential output achieves a 1.50 V peak-to-peak swing across a 100 ohm differential / 25 ohm common-mode load. Across TT, SS, and FF process corners, the design achieves a minimum SFDR of 48.2 dB across the tested Nyquist-band input frequencies, meeting the 48 dB SFDR requirement. The design also achieves DNL below 0.18 LSB and INL below 0.24 LSB, well within the +/-1 LSB and +/-2 LSB limits. The 6-bit trim DAC provides approximately -14.8% to +14.3% current tuning range per bit, exceeding the +/-10% specification.
+The differential output achieves a 1.50 V peak-to-peak swing across a 100 ohm differential / 25 ohm common-mode load. Across TT, SS, and FF process corners, the design achieves a minimum SFDR of 48.2 dB over the tested Nyquist-band input frequencies, meeting the 48 dB SFDR requirement. The design also achieves DNL below 0.18 LSB and INL below 0.24 LSB, well within the +/-1 LSB and +/-2 LSB limits. The 6-bit trim DAC provides a current tuning range of approximately -14.8% to +14.3% per bit, exceeding the +/-10% specification.
 
 ## I. Introduction
 
-High-speed digital-to-analog converters are fundamental building blocks in communication systems, arbitrary waveform generators, and software-defined radio front ends. The purpose of this project is to design an 8-bit DAC at 250-MS/s in TSMC 0.18 µm CMOS.
+High-speed digital-to-analog converters are fundamental building blocks in communication systems, arbitrary waveform generators, and software-defined radio front ends. The purpose of this project is to design an 8-bit, 250-MS/s DAC in TSMC 0.18 µm CMOS.
 
 The design specifications are summarized below.
 
@@ -74,7 +78,7 @@ The design specifications are summarized below.
 
 ### A. Binary-Weighted Current-Steering Architecture
 
-The DAC employs a direct binary-weighted current-steering architecture. Eight NMOS bit cells with binary current weights steer current to either the positive or negative output node based on the corresponding digital input bit.
+The DAC employs a direct binary-weighted current-steering architecture. Eight NMOS bit cells with binary-weighted currents steer current to either the positive or negative output node based on the corresponding digital input bit.
 
 The full-scale current is:
 
@@ -92,13 +96,13 @@ A binary-weighted topology was chosen over a segmented architecture because it r
 
 ### B. Analog Weight Tuning
 
-Device mismatch causes the actual current of each bit cell to deviate from its ideal binary weight, degrading INL and DNL. Each bit cell therefore incorporates an independent 6-bit trim DAC that provides a programmable sink current at the internal drain node.
+Device mismatch causes the actual current of each bit cell to deviate from its ideal binary weight, degrading INL and DNL. Each bit cell therefore incorporates an independent 6-bit trim DAC, which provides a programmable sink current at the internal drain node.
 
 Trim code `32` is defined as the nominal setting. Sweeping the trim code below or above 32 provides effective negative or positive correction relative to the nominal bit-cell current, with a tuning range exceeding +/-10% of the nominal cell current.
 
 ### C. Output Network
 
-The differential output is terminated with two 50 ohm resistors, each connected from `vdd!` to the corresponding output node (`OUTp` and `OUTn`), plus 550 fF capacitors from each output node to ground. This configuration gives:
+The differential output is terminated with two 50 ohm resistors, each connected from `vdd!` to the corresponding output node (`OUTp` or `OUTn`), plus 550 fF capacitors from each output node to ground. This configuration provides:
 
 - 100 ohm differential output resistance,
 - 25 ohm common-mode output resistance,
@@ -115,7 +119,7 @@ The top-level design contains four main blocks:
 - DAC Core
 - Output Load
 
-The DAC core contains eight binary-weighted bit cells and a per-bit 6-bit trim DAC. The output load is 50 ohm plus 550 fF per output node.
+The DAC core contains eight binary-weighted bit cells and a per-bit 6-bit trim DAC. The output load consists of a 50 ohm resistor and a 550 fF capacitor per output node.
 
 <div align="center">
 <img src="figures/fig01-top-level-schematic.png" alt="Fig. 1. Top-level schematic of the 8-bit DAC." width="900"><br>
@@ -124,7 +128,7 @@ The DAC core contains eight binary-weighted bit cells and a per-bit 6-bit trim D
 
 ### B. Single Bit Cell of DAC Core
 
-The DAC core uses eight bit cells with weights `1, 2, 4, 8, 16, 32, 64, 128`, corresponding to the 8-bit input code from LSB to MSB. Each bit cell steers its weighted current to either the positive or negative output branch according to the retimed differential digital inputs.
+The DAC core uses eight bit cells with weights `1, 2, 4, 8, 16, 32, 64, 128`, corresponding to the 8-bit input code from LSB to MSB. Each bit cell steers its weighted current to either the positive or negative output branch according to the retimed differential digital input pair.
 
 <div align="center">
 <img src="figures/fig02-bit-cell.png" alt="Fig. 2. Single bit DAC cell tuned by a 6-bit trim DAC." width="600"><br>
@@ -141,7 +145,7 @@ For bit `k`, the multiplier is `m = 2^k`; the MSB cell uses `m = 128`, while the
 
 ### C. Trim DAC Cell
 
-Each bit cell incorporates a 6-bit trim DAC block consisting of six binary-weighted single-bit trim DAC cells with weights `1, 2, 4, 8, 16, 32` times the bit cell base multiplicity.
+Each bit cell incorporates a 6-bit trim DAC block made from six binary-weighted single-bit trim DAC cells, with weights `1, 2, 4, 8, 16, 32` times the bit cell's base multiplicity.
 
 <div align="center">
 <img src="figures/fig03-trim-dac-cell.png" alt="Fig. 3. Single-bit trim DAC cell." width="500"><br>
@@ -156,7 +160,7 @@ Each bit cell incorporates a 6-bit trim DAC block consisting of six binary-weigh
 | Inverter PMOS | 10 um | 180 nm | 1 |
 | Inverter NMOS | 10 um | 180 nm | 1 |
 
-The long-channel trim current source improves output impedance and helps keep correction current code-independent. The default trim signal is `100000` in binary, or decimal `32`.
+The long-channel trim current source improves output impedance and helps keep the correction current code-independent. The default trim signal is `100000` in binary, or decimal `32`.
 
 <div align="center">
 <img src="figures/fig04-dac-core.png" alt="Fig. 4. Complete 8-bit DAC core." width="900"><br>
@@ -165,7 +169,7 @@ The long-channel trim current source improves output impedance and helps keep co
 
 ### D. Input Retimer
 
-To ensure simultaneous current-cell switching and suppress inter-bit skew, all 8 data bits are retimed to the rising edge of `CLKT`. Each bit passes through a NAND-latch-based retimer cell that produces synchronous complementary outputs `Dp` and `Dn`.
+To ensure simultaneous current-cell switching and suppress inter-bit skew, all 8 data bits are retimed on the rising edge of `CLKT`. Each bit passes through a NAND-latch-based retimer cell that produces synchronous complementary outputs, `Dp` and `Dn`.
 
 <div align="center">
 <img src="figures/fig05-retimer-cell.png" alt="Fig. 5. Single-bit retimer cell." width="700"><br>
@@ -191,7 +195,7 @@ To ensure simultaneous current-cell switching and suppress inter-bit skew, all 8
 
 ### E. Bias Generator
 
-All current sources share a common gate bias `Vb`, generated by forcing 100 uA through a diode-connected NMOS transistor.
+All current sources share a common gate bias, `Vb`, generated by forcing 100 uA through a diode-connected NMOS transistor.
 
 <div align="center">
 <img src="figures/fig08-bias-generator.png" alt="Fig. 8. Bias generator." width="200"><br>
@@ -223,11 +227,11 @@ Dynamic performance is evaluated using six coherent input tones with `M = 2048` 
 fin = J * fs / M
 ```
 
-The exported output spectrum is post-processed with zero-order-hold sinc correction before calculating SFDR, SNDR, and ENOB. DC bins and the fundamental +/-2 bins are excluded when identifying the largest spur, while the fundamental power is integrated over +/-2 bins for SNDR and SFDR calculation.
+The exported output spectrum is post-processed with zero-order-hold sinc correction before SFDR, SNDR, and ENOB are calculated. DC bins and the fundamental +/-2 bins are excluded when identifying the largest spur, while the fundamental power is integrated over +/-2 bins for SNDR and SFDR calculation.
 
 ### B. Output Impedance
 
-The output impedance is characterized by an AC frequency sweep at each of the `2^8 = 256` input codes. The low-frequency output resistance is extracted for both differential and common-mode outputs.
+The output impedance is characterized with an AC frequency sweep at each of the `2^8 = 256` input codes. The low-frequency output resistance is extracted for both differential and common-mode outputs.
 
 <div align="center">
 <img src="figures/fig09-output-impedance-code.png" alt="Fig. 9. Low-frequency Rout,diff and Rout,CM vs. 8-bit input code." width="500"><br>
@@ -243,7 +247,7 @@ The differential output resistance varies only from 98.76 ohm to 99.84 ohm acros
 
 ### C. Output Swing and Common-Mode Voltage
 
-All corners achieve at least 1.50 Vpp differential output swing. The common-mode voltage is approximately 1.42 V.
+All corners achieve at least 1.50 Vpp of differential output swing. The common-mode voltage is approximately 1.42 V.
 
 | Corner | Vdiff,pp (V) | VOUTp,pp (V) | VOUTn,pp (V) | VCM (V) |
 | --- | ---: | ---: | ---: | ---: |
@@ -253,7 +257,7 @@ All corners achieve at least 1.50 Vpp differential output swing. The common-mode
 
 ### D. Retimer Timing Verification
 
-The input retimer synchronizes all 8 data bits to the rising edge of `CLKT`. The report verifies the input data `D<0>`, the retimed output `Dret<0>`, and both clock phases over a 40 ns window.
+The input retimer synchronizes all 8 data bits to the rising edge of `CLKT`. The simulation verifies the input data `D<0>`, the retimed output `Dret<0>`, and both clock phases over a 40 ns window.
 
 <div align="center">
 <img src="figures/fig11-retimer-waveforms.png" alt="Fig. 11. Retimer waveforms." width="500"><br>
@@ -296,11 +300,11 @@ Per-bit current deviation is measured as the 6-bit trim code is swept from 0 to 
 <em>Fig. 13. Analog weight tuning range per bit in the TT corner.</em>
 </div>
 
-The measured tuning range is -14.8% at trim code 0 to +14.3% at trim code 63, averaged across all 8 bits. This exceeds the +/-10% requirement with more than 40% margin.
+The measured tuning range is -14.8% at trim code 0 and +14.3% at trim code 63, averaged across all 8 bits. This exceeds the +/-10% requirement with more than 40% margin.
 
 ### G. Dynamic Performance
 
-Output spectra are measured at low input frequency and near Nyquist. The TT corner examples are:
+Output spectra are measured at a low input frequency and near Nyquist. The TT corner examples are:
 
 <div align="center">
 <img src="figures/fig14-spectrum-low-frequency.png" alt="Fig. 14. Output spectrum at fin = 2.07 MHz, TT corner." width="500"><br>
@@ -324,7 +328,7 @@ SFDR and SNDR across process corners:
 <em>Fig. 17. SNDR vs. input frequency across process corners.</em>
 </div>
 
-The TT corner achieves SFDR from 51 dB to 58 dB and SNDR from 47 dB to 49 dB across the tested Nyquist-band tones. The FF corner has the worst SFDR, dropping to 48.2 dB near 61 MHz.
+The TT corner achieves SFDR from 51 dB to 58 dB and SNDR from 47 dB to 49 dB across the tested Nyquist-band tones. The FF corner has the worst SFDR, which drops to 48.2 dB near 61 MHz.
 
 ### H. Performance Summary
 
@@ -358,7 +362,7 @@ Additional summary values:
 
 ### I. Power Consumption
 
-Power is measured by time-averaging instantaneous supply power from 10 ns to 990 ns in transient simulation at three representative input frequencies in the TT corner.
+Power is measured by time-averaging the instantaneous supply power from 10 ns to 990 ns in transient simulation at three representative input frequencies in the TT corner.
 
 | Block | Low, 2.1 MHz | Mid, 61.4 MHz | High, 121.7 MHz |
 | --- | ---: | ---: | ---: |
@@ -367,16 +371,34 @@ Power is measured by time-averaging instantaneous supply power from 10 ns to 990
 | DAC + Load | 29.93 mW | 29.98 mW | 30.02 mW |
 | Total | 50.96 mW | 56.57 mW | 60.79 mW |
 
-The DAC core and load consume nearly constant power across input frequency. The retimer is the dominant frequency-dependent block.
+The DAC core and load consume nearly constant power across input frequency. The retimer is the dominant frequency-dependent power contributor.
 
 ### J. SFDR Limiting Factors
 
 The primary SFDR bottleneck is switching nonlinearity in the high-weight current cells. The MSB cell carries 128 LSBs of current and uses 128 parallel switch transistors. The large gate capacitance of these wide devices causes code-dependent charge injection and finite rise/fall time at the switch drains, producing harmonic distortion.
 
-The FF corner has faster transitions and stronger switching transients, which can worsen dynamic distortion. The minimum SFDR of 48.2 dB occurs in the FF corner near 61 MHz. The NAND-latch retimer suppresses HD2 by ensuring `Dp` and `Dn` switch symmetrically, but odd-order harmonics remain and ultimately limit SFDR.
+The FF corner has faster transitions and stronger switching transients, which can worsen dynamic distortion. The minimum SFDR of 48.2 dB occurs in the FF corner near 61 MHz. The NAND-latch retimer suppresses HD2 by ensuring that `Dp` and `Dn` switch symmetrically, but odd-order harmonics remain and ultimately limit SFDR.
+
+### K. Design File Package
+
+The repository includes both the original Cadence netlist exports and a cleaned Spectre source package. The exported files are kept in `Netlist_file/`, preserving the Cadence-generated folder structure and filenames. The cleaned files are in `Spice_file/` and use the same hierarchy with `.scs` filenames.
+
+The main Spectre testbenches are:
+
+| Testbench | Purpose |
+| --- | --- |
+| `Spice_file/test/INL_DNL_test.scs` | Static transfer sweep, DNL, and INL |
+| `Spice_file/test/Tuniing_Range_test.scs` | Per-bit trim tuning range |
+| `Spice_file/test/SNDR_SFDR_test.scs` | Dynamic spectrum, SFDR, SNDR, and ENOB |
+| `Spice_file/test/Power_test.scs` | Average power by block |
+| `Spice_file/test/Input_Retimer_test.scs` | Retimer timing verification |
+| `Spice_file/test/Output_cm_test.scs` | Common-mode output resistance |
+| `Spice_file/test/Output_diff_test.scs` | Differential output resistance |
+
+The block-level Spectre netlists are in `Spice_file/Top-Level/` and include the DAC core, input retimer, output load, and bias generator. The MATLAB post-processing scripts and exported CSV data are kept in `Matlab_file/`, while the organized final submission package is kept in `ELEN6316_Submission/`.
 
 ## V. Conclusion
 
-An 8-bit, 250-MS/s differential current-steering DAC was designed in TSMC 0.18 µm CMOS. The design meets all static specifications: differential output swing of 1.50 Vpp, DNL below 0.18 LSB, and INL below 0.24 LSB across TT, SS, and FF corners. The 6-bit analog weight trim DAC provides approximately +/-14% tuning range per bit, exceeding the +/-10% requirement.
+An 8-bit, 250-MS/s differential current-steering DAC was designed in TSMC 0.18 µm CMOS. The design meets all static specifications, including a differential output swing of 1.50 Vpp, DNL below 0.18 LSB, and INL below 0.24 LSB across TT, SS, and FF corners. The 6-bit analog weight trim DAC provides approximately +/-14% tuning range per bit, exceeding the +/-10% requirement.
 
-Dynamic performance satisfies the 48 dB SFDR target across the tested Nyquist-band input frequencies, with the tightest margin in the FF corner at mid-frequency. The output impedance meets specification across all 256 input codes: differential output resistance is 98.76-99.84 ohm and common-mode output resistance is 24.69-24.96 ohm. Total power ranges from 51.0 mW at low input frequency to 60.8 mW near Nyquist, with the retimer as the dominant frequency-dependent consumer.
+Dynamic performance satisfies the 48 dB SFDR target across the tested Nyquist-band input frequencies, with the tightest margin in the FF corner at mid-frequency. The output impedance meets specification across all 256 input codes: differential output resistance is 98.76-99.84 ohm, and common-mode output resistance is 24.69-24.96 ohm. Total power ranges from 51.0 mW at low input frequency to 60.8 mW near Nyquist, with the retimer as the dominant frequency-dependent power consumer.
