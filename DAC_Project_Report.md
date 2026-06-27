@@ -122,7 +122,7 @@ The top-level design contains four main blocks:
 The DAC core contains eight binary-weighted bit cells and a per-bit 6-bit trim DAC. The output load consists of a 50 ohm resistor and a 550 fF capacitor per output node.
 
 <div align="center">
-<img src="figures/fig01-top-level-schematic.png" alt="Fig. 1. Top-level schematic of the 8-bit DAC." width="900"><br>
+<img src="figures/fig01-top-level-schematic.png" alt="Fig. 1. Top-level schematic of the 8-bit DAC." width="1000"><br>
 <em>Fig. 1. Top-level schematic of the 8-bit DAC.</em>
 </div>
 
@@ -163,7 +163,7 @@ Each bit cell incorporates a 6-bit trim DAC block made from six binary-weighted 
 The long-channel trim current source improves output impedance and helps keep the correction current code-independent. The default trim signal is `100000` in binary, or decimal `32`.
 
 <div align="center">
-<img src="figures/fig04-dac-core.png" alt="Fig. 4. Complete 8-bit DAC core." width="900"><br>
+<img src="figures/fig04-dac-core.png" alt="Fig. 4. Complete 8-bit DAC core." width="1000"><br>
 <em>Fig. 4. Complete 8-bit DAC core.</em>
 </div>
 
@@ -189,7 +189,7 @@ To ensure simultaneous current-cell switching and suppress inter-bit skew, all 8
 | Inverter NMOS | 220 nm | 180 nm | `Msize` |
 
 <div align="center">
-<img src="figures/fig07-input-retimer.png" alt="Fig. 7. Complete 8-bit input retimer block." width="900"><br>
+<img src="figures/fig07-input-retimer.png" alt="Fig. 7. Complete 8-bit input retimer block." width="1000"><br>
 <em>Fig. 7. Complete 8-bit input retimer block.</em>
 </div>
 
