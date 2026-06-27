@@ -14,7 +14,7 @@ Structure:
 Package / asset layout:
 - Report source: `DAC_Project_Report.md`.
 - Figure assets: `figures/`.
-- Clean Spectre netlists: `Spice_file/`.
+- Clean Spectre netlists: `Spectre_file/`.
 - Original Cadence netlist exports: `Netlist_file/`.
 - MATLAB result scripts and CSV data: `Matlab_file/`.
 - Final submission package: `ELEN6316_Submission/`.
@@ -381,21 +381,21 @@ The FF corner has faster transitions and stronger switching transients, which ca
 
 ### K. Design File Package
 
-The repository includes both the original Cadence netlist exports and a cleaned Spectre source package. The exported files are kept in `Netlist_file/`, preserving the Cadence-generated folder structure and filenames. The cleaned files are in `Spice_file/` and use the same hierarchy with `.scs` filenames.
+The repository includes both the original Cadence netlist exports and a cleaned Spectre source package. The exported files are kept in `Netlist_file/`, preserving the Cadence-generated folder structure and filenames. The cleaned files are in `Spectre_file/` and use the same hierarchy with `.scs` filenames.
 
 The main Spectre testbenches are:
 
 | Testbench | Purpose |
 | --- | --- |
-| `Spice_file/test/INL_DNL_test.scs` | Static transfer sweep, DNL, and INL |
-| `Spice_file/test/Tuniing_Range_test.scs` | Per-bit trim tuning range |
-| `Spice_file/test/SNDR_SFDR_test.scs` | Dynamic spectrum, SFDR, SNDR, and ENOB |
-| `Spice_file/test/Power_test.scs` | Average power by block |
-| `Spice_file/test/Input_Retimer_test.scs` | Retimer timing verification |
-| `Spice_file/test/Output_cm_test.scs` | Common-mode output resistance |
-| `Spice_file/test/Output_diff_test.scs` | Differential output resistance |
+| `Spectre_file/test/INL_DNL_test.scs` | Static transfer sweep, DNL, and INL |
+| `Spectre_file/test/Tuniing_Range_test.scs` | Per-bit trim tuning range |
+| `Spectre_file/test/SNDR_SFDR_test.scs` | Dynamic spectrum, SFDR, SNDR, and ENOB |
+| `Spectre_file/test/Power_test.scs` | Average power by block |
+| `Spectre_file/test/Input_Retimer_test.scs` | Retimer timing verification |
+| `Spectre_file/test/Output_cm_test.scs` | Common-mode output resistance |
+| `Spectre_file/test/Output_diff_test.scs` | Differential output resistance |
 
-The block-level Spectre netlists are in `Spice_file/Top-Level/` and include the DAC core, input retimer, output load, and bias generator. The MATLAB post-processing scripts and exported CSV data are kept in `Matlab_file/`, while the organized final submission package is kept in `ELEN6316_Submission/`.
+The block-level Spectre netlists are in `Spectre_file/Top-Level/` and include the DAC core, input retimer, output load, and bias generator. The MATLAB post-processing scripts and exported CSV data are kept in `Matlab_file/`, while the organized final submission package is kept in `ELEN6316_Submission/`.
 
 ## V. Conclusion
 
