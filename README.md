@@ -38,21 +38,21 @@ Yi-Hsiang Wei and Zijian Shang are students in Columbia University's Department 
 - [figures/README.md](figures/README.md) - image placement guide for figures referenced by the Markdown report.
 - [ELEN6316_Submission/docs/elen6316_submission.pdf](ELEN6316_Submission/docs/elen6316_submission.pdf) - class submission report.
 - [ELEN6316_Submission/docs/project_requirements.pdf](ELEN6316_Submission/docs/project_requirements.pdf) - course project requirements.
-- `Netlist_file/` - original Cadence-exported Spectre netlists and simulation testbenches.
-- `Spectre_file/` - cleaned Spectre `.scs` files mirroring `Netlist_file/`.
-- `Matlab_file/` - MATLAB analysis scripts and exported CSV data.
+- `Netlist_files/` - original Cadence-exported Spectre netlists and simulation testbenches.
+- `Spectre_files/` - cleaned Spectre `.scs` files mirroring `Netlist_files/`.
+- `Matlab_files/` - MATLAB analysis scripts and exported CSV data.
 - `ELEN6316_Submission/` - organized submission package with report source, figures, results, and final PDFs.
 
 ## Repository Layout
 
 ```text
-Netlist_file/
+Netlist_files/
   Top-Level/          Original block-level Cadence Spectre exports
   test/               Original simulation testbenches
-Spectre_file/
+Spectre_files/
   Top-Level/          Cleaned block-level Spectre .scs files
   test/               Cleaned Spectre .scs testbenches
-Matlab_file/
+Matlab_files/
   Static/             INL/DNL and output swing analysis
   Dynamic/            SFDR, SNDR, ENOB, and spectrum analysis
   Tuning Range/       Per-bit trim range analysis
@@ -65,7 +65,7 @@ ELEN6316_Submission/  Final submission package
 
 ## Running Spectre Simulations
 
-The preferred simulation inputs are in `Spectre_file/`. These files use Spectre syntax, have `.scs` extensions, and have had generated `//` comment lines removed. The original Cadence exports are preserved in `Netlist_file/`.
+The preferred simulation inputs are in `Spectre_files/`. These files use Spectre syntax, have `.scs` extensions, and have had generated `//` comment lines removed. The original Cadence exports are preserved in `Netlist_files/`.
 
 The testbenches include absolute model paths from the original environment:
 
@@ -79,26 +79,26 @@ Update those paths before running the simulations locally.
 Example:
 
 ```sh
-spectre Spectre_file/test/INL_DNL_test.scs
+spectre Spectre_files/test/INL_DNL_test.scs
 ```
 
 Useful testbenches:
 
-- `Spectre_file/test/INL_DNL_test.scs`
-- `Spectre_file/test/Tuniing_Range_test.scs`
-- `Spectre_file/test/SNDR_SFDR_test.scs`
-- `Spectre_file/test/Power_test.scs`
-- `Spectre_file/test/Input_Retimer_test.scs`
-- `Spectre_file/test/Output_cm_test.scs`
-- `Spectre_file/test/Output_diff_test.scs`
+- `Spectre_files/test/INL_DNL_test.scs`
+- `Spectre_files/test/Tuniing_Range_test.scs`
+- `Spectre_files/test/SNDR_SFDR_test.scs`
+- `Spectre_files/test/Power_test.scs`
+- `Spectre_files/test/Input_Retimer_test.scs`
+- `Spectre_files/test/Output_cm_test.scs`
+- `Spectre_files/test/Output_diff_test.scs`
 
 ## MATLAB Analysis
 
 Run each MATLAB script from its own folder so the relative CSV paths resolve.
 
 ```matlab
-cd Matlab_file/Dynamic
+cd Matlab_files/Dynamic
 run("SFDR_SNDR_ENOB_all.m")
 ```
 
-The main analysis scripts are in the `Matlab_file/` subdirectories.
+The main analysis scripts are in the `Matlab_files/` subdirectories.
