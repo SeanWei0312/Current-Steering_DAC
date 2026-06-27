@@ -1,0 +1,63 @@
+simulator lang=spectre
+global 0
+parameters trim6 trim7 trim0 trim1 trim2 trim3 trim5 trim4
+
+V11 (T6\<3\> 0) vsource dc=1.8*(floor(trim6/8)-2*floor(trim6/16)) type=dc
+V10 (T7\<3\> 0) vsource dc=1.8*(floor(trim7/8)-2*floor(trim7/16)) type=dc
+V9 (T6\<4\> 0) vsource dc=1.8*(floor(trim6/16)-2*floor(trim6/32)) type=dc
+V8 (T7\<4\> 0) vsource dc=1.8*(floor(trim7/16)-2*floor(trim7/32)) type=dc
+V7 (T7\<5\> 0) vsource dc=1.8*(floor(trim7/32)-2*floor(trim7/64)) type=dc
+V6 (T6\<5\> 0) vsource dc=1.8*(floor(trim6/32)-2*floor(trim6/64)) type=dc
+V5 (T7\<2\> 0) vsource dc=1.8*(floor(trim7/4)-2*floor(trim7/8)) type=dc
+V4 (T7\<1\> 0) vsource dc=1.8*(floor(trim7/2)-2*floor(trim7/4)) type=dc
+V3 (T7\<0\> 0) vsource dc=1.8*(floor(trim7/1)-2*floor(trim7/2)) type=dc
+V2 (T6\<0\> 0) vsource dc=1.8*(floor(trim6/1)-2*floor(trim6/2)) type=dc
+V1 (T6\<1\> 0) vsource dc=1.8*(floor(trim6/2)-2*floor(trim6/4)) type=dc
+V0 (T6\<2\> 0) vsource dc=1.8*(floor(trim6/4)-2*floor(trim6/8)) type=dc
+V62 (T0\<0\> 0) vsource dc=1.8*(floor(trim0/1)-2*floor(trim0/2)) type=dc
+V61 (T1\<0\> 0) vsource dc=1.8*(floor(trim1/1)-2*floor(trim1/2)) type=dc
+V60 (T2\<0\> 0) vsource dc=1.8*(floor(trim2/1)-2*floor(trim2/2)) type=dc
+V59 (T3\<0\> 0) vsource dc=1.8*(floor(trim3/1)-2*floor(trim3/2)) type=dc
+V58 (T5\<0\> 0) vsource dc=1.8*(floor(trim5/1)-2*floor(trim5/2)) type=dc
+V57 (T4\<0\> 0) vsource dc=1.8*(floor(trim4/1)-2*floor(trim4/2)) type=dc
+V56 (T4\<1\> 0) vsource dc=1.8*(floor(trim4/2)-2*floor(trim4/4)) type=dc
+V55 (T5\<1\> 0) vsource dc=1.8*(floor(trim5/2)-2*floor(trim5/4)) type=dc
+V54 (T3\<1\> 0) vsource dc=1.8*(floor(trim3/2)-2*floor(trim3/4)) type=dc
+V53 (T2\<1\> 0) vsource dc=1.8*(floor(trim2/2)-2*floor(trim2/4)) type=dc
+V52 (T1\<1\> 0) vsource dc=1.8*(floor(trim1/2)-2*floor(trim1/4)) type=dc
+V51 (T0\<1\> 0) vsource dc=1.8*(floor(trim0/2)-2*floor(trim0/4)) type=dc
+V50 (T0\<2\> 0) vsource dc=1.8*(floor(trim0/4)-2*floor(trim0/8)) type=dc
+V49 (T1\<2\> 0) vsource dc=1.8*(floor(trim1/4)-2*floor(trim1/8)) type=dc
+V48 (T2\<2\> 0) vsource dc=1.8*(floor(trim2/4)-2*floor(trim2/8)) type=dc
+V47 (T3\<2\> 0) vsource dc=1.8*(floor(trim3/4)-2*floor(trim3/8)) type=dc
+V46 (T5\<2\> 0) vsource dc=1.8*(floor(trim5/4)-2*floor(trim5/8)) type=dc
+V45 (T4\<2\> 0) vsource dc=1.8*(floor(trim4/4)-2*floor(trim4/8)) type=dc
+V44 (T4\<3\> 0) vsource dc=1.8*(floor(trim4/8)-2*floor(trim4/16)) type=dc
+V43 (T5\<3\> 0) vsource dc=1.8*(floor(trim5/8)-2*floor(trim5/16)) type=dc
+V42 (T3\<3\> 0) vsource dc=1.8*(floor(trim3/8)-2*floor(trim3/16)) type=dc
+V41 (T2\<3\> 0) vsource dc=1.8*(floor(trim2/8)-2*floor(trim2/16)) type=dc
+V40 (T1\<3\> 0) vsource dc=1.8*(floor(trim1/8)-2*floor(trim1/16)) type=dc
+V39 (T0\<3\> 0) vsource dc=1.8*(floor(trim0/8)-2*floor(trim0/16)) type=dc
+V38 (T4\<4\> 0) vsource dc=1.8*(floor(trim4/16)-2*floor(trim4/32)) type=dc
+V37 (T5\<4\> 0) vsource dc=1.8*(floor(trim5/16)-2*floor(trim5/32)) type=dc
+V36 (T3\<4\> 0) vsource dc=1.8*(floor(trim3/16)-2*floor(trim3/32)) type=dc
+V35 (T2\<4\> 0) vsource dc=1.8*(floor(trim2/16)-2*floor(trim2/32)) type=dc
+V34 (T1\<4\> 0) vsource dc=1.8*(floor(trim1/16)-2*floor(trim1/32)) type=dc
+V33 (T0\<4\> 0) vsource dc=1.8*(floor(trim0/16)-2*floor(trim0/32)) type=dc
+V21 (T1\<5\> 0) vsource dc=1.8*(floor(trim1/32)-2*floor(trim1/64)) type=dc
+V20 (T0\<5\> 0) vsource dc=1.8*(floor(trim0/32)-2*floor(trim0/64)) type=dc
+V19 (T3\<5\> 0) vsource dc=1.8*(floor(trim3/32)-2*floor(trim3/64)) type=dc
+V18 (T2\<5\> 0) vsource dc=1.8*(floor(trim2/32)-2*floor(trim2/64)) type=dc
+V17 (T5\<5\> 0) vsource dc=1.8*(floor(trim5/32)-2*floor(trim5/64)) type=dc
+V16 (T4\<5\> 0) vsource dc=1.8*(floor(trim4/32)-2*floor(trim4/64)) type=dc
+simulatorOptions options psfversion="1.4.0" reltol=1e-3 vabstol=1e-6 \
+    iabstol=1e-12 temp=27 tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 \
+    maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3 \
+    sensfile="../psf/sens.output" checklimitdest=psf 
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+subckts info what=subckts where=rawfile
+saveOptions options save=allpub
