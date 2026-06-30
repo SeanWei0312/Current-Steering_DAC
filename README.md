@@ -4,7 +4,7 @@ This project implements an 8-bit, 250-MS/s differential current-steering DAC in 
 
 ## Project Summary
 
-This is the final project for ELEN 6316 Analog-Digital Interfaces in VLSI, Spring 2026.
+This is the final project for ELEN E6316 Analog-Digital Interfaces in VLSI, Spring 2026.
 
 The DAC uses eight binary-weighted NMOS current-steering bit cells with weights from 1 to 128. Each bit cell includes a 6-bit analog trim DAC for current-weight calibration. A NAND-latch-based input retimer aligns all digital inputs with the sampling clock, and a 100 uA NMOS-mirror bias generator provides the shared current-source bias.
 
